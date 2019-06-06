@@ -28,9 +28,10 @@ def entry_point():
     # Turn off TensorFlow warning messages in program output
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-    print(paths)
+    print("Print in Train.entry_point")
+    print(paths.input('training', 'tweets.csv'))
     # load training data set from csv file
-    training_data_df = pd.read_csv(paths.input('training', 'tweets.csv'), dtype=float)
+    training_data_df = pd.read_csv(paths.input('training', 'tweets.csv'))
 
     X_training = training_data_df.drop('total_earnings', axis=1).values
     Y_training = training_data_df[['total_earnings']].values
