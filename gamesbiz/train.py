@@ -1,13 +1,265 @@
 import os
 import json
 
+import os
+import sys
+import traceback
+
+import numpy as np
 import pandas as pd
-from sklearn.preprocessing import MinMaxScaler
-import tensorflow as tf
-from sklearn.externals import joblib
+import sagemaker as sage
+from time import gmtime, strftime
+import numpy as np
+
+pd.options.mode.chained_assignment = None
+from copy import deepcopy
+from string import punctuation
+from random import shuffle
+
+import re
+from string import punctuation 
+from nltk.corpus import stopwords 
+from nltk.tokenize import word_tokenize
+
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer
+import boto3
+import json
+import pandas as pd
+from sagemaker import get_execution_role
+from io import StringIO
+import datetime
+
+import keras
+import tensorflow
+from keras.preprocessing.text import Tokenizer
+from keras.preprocessing.sequence import pad_sequences
+from keras.models import Sequential
+from keras.layers import Dense, Embedding, LSTM, GRU, Activation
+from keras.layers.embeddings import Embedding
+from keras.wrappers.scikit_learn import KerasClassifier
+from sklearn.preprocessing import scale
+from sklearn.model_selection import GridSearchCV
+
+from keras.utils import np_utils
+from sklearn.preprocessing import LabelEncoder
+
+import emoji
 
 from gamesbiz.resolve import paths
 
+prefix = '/opt/ml/'
+
+input_path = prefix + 'input/data'
+output_path = os.path.join(prefix, 'output')
+model_path = os.path.join(prefix, 'model')
+
+contraction_mapping = {"ain't": "is not", "aren't": "are not","can't": "cannot", 
+                   "can't've": "cannot have", "'cause": "because", "could've": "could have", 
+                   "couldn't": "could not", "couldn't've": "could not have","didn't": "did not", 
+                   "doesn't": "does not", "don't": "do not", "hadn't": "had not", 
+                   "hadn't've": "had not have", "hasn't": "has not", "haven't": "have not", 
+                   "he'd": "he would", "he'd've": "he would have", "he'll": "he will", 
+                   "he'll've": "he will have", "he's": "he is", "how'd": "how did", 
+                   "how'd'y": "how do you", "how'll": "how will", "how's": "how is", 
+                   "I'd": "I would", "I'd've": "I would have", "I'll": "I will", 
+                   "I'll've": "I will have","I'm": "I am", "I've": "I have", 
+                   "i'd": "i would", "i'd've": "i would have", "i'll": "i will", 
+                   "i'll've": "i will have","i'm": "i am", "i've": "i have", 
+                   "isn't": "is not", "it'd": "it would", "it'd've": "it would have", 
+                   "it'll": "it will", "it'll've": "it will have","it's": "it is", 
+                   "let's": "let us", "ma'am": "madam", "mayn't": "may not", 
+                   "might've": "might have","mightn't": "might not","mightn't've": "might not have", 
+                   "must've": "must have", "mustn't": "must not", "mustn't've": "must not have", 
+                   "needn't": "need not", "needn't've": "need not have","o'clock": "of the clock", 
+                   "oughtn't": "ought not", "oughtn't've": "ought not have", "shan't": "shall not",
+                   "sha'n't": "shall not", "shan't've": "shall not have", "she'd": "she would", 
+                   "she'd've": "she would have", "she'll": "she will", "she'll've": "she will have", 
+                   "she's": "she is", "should've": "should have", "shouldn't": "should not", 
+                   "shouldn't've": "should not have", "so've": "so have","so's": "so as", 
+                   "this's": "this is",
+                   "that'd": "that would", "that'd've": "that would have","that's": "that is", 
+                   "there'd": "there would", "there'd've": "there would have","there's": "there is", 
+                       "here's": "here is",
+                   "they'd": "they would", "they'd've": "they would have", "they'll": "they will", 
+                   "they'll've": "they will have", "they're": "they are", "they've": "they have", 
+                   "to've": "to have", "wasn't": "was not", "we'd": "we would", 
+                   "we'd've": "we would have", "we'll": "we will", "we'll've": "we will have", 
+                   "we're": "we are", "we've": "we have", "weren't": "were not", 
+                   "what'll": "what will", "what'll've": "what will have", "what're": "what are", 
+                   "what's": "what is", "what've": "what have", "when's": "when is", 
+                   "when've": "when have", "where'd": "where did", "where's": "where is", 
+                   "where've": "where have", "who'll": "who will", "who'll've": "who will have", 
+                   "who's": "who is", "who've": "who have", "why's": "why is", 
+                   "why've": "why have", "will've": "will have", "won't": "will not", 
+                   "won't've": "will not have", "would've": "would have", "wouldn't": "would not", 
+                   "wouldn't've": "would not have", "y'all": "you all", "y'all'd": "you all would",
+                   "y'all'd've": "you all would have","y'all're": "you all are","y'all've": "you all have",
+                   "you'd": "you would", "you'd've": "you would have", "you'll": "you will", 
+                   "you'll've": "you will have", "you're": "you are", "you've": "you have" } 
+
+smileys ={
+        ":‑)":"smiley",
+        ":-]":"smiley",
+        ":-3":"smiley",
+        ":->":"smiley",
+        "8-)":"smiley",
+        ":-}":"smiley",
+        ":)":"smiley",
+        ":]":"smiley",
+        ":3":"smiley",
+        ":>":"smiley",
+        "8)":"smiley",
+        ":}":"smiley",
+        ":o)":"smiley",
+        ":c)":"smiley",
+        ":^)":"smiley",
+        "=]":"smiley",
+        "=)":"smiley",
+        ":-))":"smiley",
+        ":‑D":"smiley",
+        "8‑D":"smiley",
+        "x‑D":"smiley",
+        "X‑D":"smiley",
+        ":D":"smiley",
+        "8D":"smiley",
+        "xD":"smiley",
+        "XD":"smiley",
+        ":‑(":"sad",
+        ":‑c":"sad",
+        ":‑<":"sad",
+        ":‑[":"sad",
+        ":(":"sad",
+        ":c":"sad",
+        ":<":"sad",
+        ":[":"sad",
+        ":-||":"sad",
+        ">:[":"sad",
+        ":{":"sad",
+        ":@":"sad",
+        ">:(":"sad",
+        ":'‑(":"sad",
+        ":'(":"sad",
+        ":‑P":"playful",
+        "X‑P":"playful",
+        "x‑p":"playful",
+        ":‑p":"playful",
+        ":‑Þ":"playful",
+        ":‑þ":"playful",
+        ":‑b":"playful",
+        ":P":"playful",
+        "XP":"playful",
+        "xp":"playful",
+        ":p":"playful",
+        ":Þ":"playful",
+        ":þ":"playful",
+        ":b":"playful",
+        "<3":"love"
+        }
+
+def clean_tokens(tweet):
+
+    tweet = tweet.lower()
+    
+    tokens = tokenizer.tokenize(tweet)
+    
+    #remove call outs
+    tokens = filter(lambda t: not t.startswith('@'), tokens)
+    
+    tweet = " ".join(tokens)
+    
+    # convert emojis to words
+    tweet = emoji.demojize(tweet).replace(":"," ").replace("_"," ")
+    #remove numbers
+    tweet = re.sub(r'(?:(?:\d+,?)+(?:\.?\d+)?)', '', tweet)
+    tweet = re.sub(r'/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/', '', tweet)
+    #clean apostrophe
+    tweet = tweet.replace("’","'")
+    tweet = tweet.replace('“','"')
+    tweet = tweet.replace('”','"')
+    tweet = tweet.replace('…','')
+    tweet = tweet.replace('\n','')
+    tweet = tweet.replace('...','')
+    tweet = tweet.replace('..','')
+    tweet = tweet.replace('�','')
+    tweet = tweet.replace('£','')
+    tweet = tweet.replace('·','')
+    tweet = tweet.replace('–','')
+    tweet = tweet.replace('🏻','')
+    tweet = tweet.replace('à','')
+    tweet = tweet.replace(' ‍','')
+    
+    tokens = tokenizer.tokenize(tweet)
+    
+    #remove hashtags
+    tokens = filter(lambda t: not t.startswith('#'), tokens)
+    #remove urls
+    tokens = filter(lambda t: not t.startswith('http'), tokens)
+    tokens = filter(lambda t: not t.startswith('t.co/'), tokens)
+    tokens = filter(lambda t: not t.startswith('ow.ly/'), tokens)
+    tokens = filter(lambda t: not t.startswith('bit.ly/'), tokens)
+    tokens = filter(lambda t: not t.startswith('soundcloud.com/'), tokens)
+    tokens = filter(lambda t: not t.startswith('outline.com/'), tokens)
+    
+    new_tokens = []
+    for token in tokens:
+        if len(token.strip())>0:
+            new_tokens.append(token)
+    
+    _stopwords = set(list(punctuation) + ['AT_USER','URL'])
+    #_stopwords = set(stopwords.words('english') + list(punctuation) + ['AT_USER','URL'])
+    
+    new_tokens = [smileys[word] if word in smileys else word for word in new_tokens]
+    new_tokens = [contraction_mapping[word] if word in contraction_mapping else word for word in new_tokens]
+    new_tokens = [word for word in new_tokens if word not in _stopwords]
+    
+    return new_tokens
+
+def data_process(raw_data):
+    
+    raw_data=raw_data[raw_data['sentiment']!='MIXED']
+
+    raw_data['tweet'] = raw_data['tweet'].apply(lambda x: clean_tokens(str(x)))
+
+    x_train = raw_data['tweet']
+    y_train = raw_data['sentiment']
+
+    encoder = LabelEncoder()
+    encoder.fit(y_train)
+    encoded_train_Y = encoder.transform(y_train)
+    dummy_train_y = np_utils.to_categorical(encoded_train_Y)
+    
+    tokenizer_obj = Tokenizer()   
+
+    tokenizer_obj.fit_on_texts(x_train)    
+    max_length = 100 # max([len(s.split()) for s in x_train])    
+    vocab_size = len(tokenizer_obj.word_index)+1  
+
+    #Building the vectors of words
+    x_train_tokens = tokenizer_obj.texts_to_sequences(x_train)
+
+    x_train_pad = pad_sequences(x_train_tokens, maxlen=max_length, padding='post')
+    
+    return x_train_pad, dummy_train_y, vocab_size, max_length
+
+def baseline_model(vocab_size, max_length):
+
+    # create model
+    model = Sequential()
+    model.add(Embedding(vocab_size, 100, input_length=max_length))
+    model.add(GRU(units=32, dropout=0.2, recurrent_dropout=0.2))
+    model.add(Dense(3, kernel_initializer="normal", activation='softmax'))
+    
+    # Compile model
+    model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+    
+    return model
+
+def generate_model(X_train, y_train, vocab_size, max_length):
+
+    estimator = baseline_model(vocab_size, max_length)
+    estimator.fit(X_train, y_train, epochs=25, batch_size=128, verbose=2)
+    return estimator
 
 def read_config_file(config_json):
     """This function reads in a json file like hyperparameters.json or resourceconfig.json
@@ -30,182 +282,13 @@ def entry_point():
 
     print("Print in Train.entry_point")
     print(paths.input('training', 'tweets.csv'))
+    
     # load training data set from csv file
     training_data_df = pd.read_csv(paths.input('training', 'tweets.csv'))
+    x_train, y_train, vocab_size, max_length = data_process(training_data_df)
 
-    X_training = training_data_df.drop('total_earnings', axis=1).values
-    Y_training = training_data_df[['total_earnings']].values
-
-    # load testing data set from csv file
-    test_data_df = pd.read_csv(paths.input('testing', 'tweets.csv'), dtype=float)
-
-    X_testing = test_data_df.drop('total_earnings', axis=1).values
-    Y_testing = test_data_df[['total_earnings']].values
-
-    # scale the data by first creating scalers for inputs and outputs and then scaling them both
-
-    X_scaler = MinMaxScaler(feature_range=(0, 1))
-    Y_scaler = MinMaxScaler(feature_range=(0, 1))
-
-    X_scaled_training = X_scaler.fit_transform(X_training)
-    Y_scaled_training = Y_scaler.fit_transform(Y_training)
-
-    # remember to scale the training and test data set with the same scaler
-    X_scaled_testing = X_scaler.transform(X_testing)
-    Y_scaled_testing = Y_scaler.transform(Y_testing)
-
-    # create a simple json file to be later used by the inference image
-    xscaler_filename = paths.model("X_scaler.save")
-    yscaler_filename = paths.model("Y_scaler.save")
-
-    joblib.dump(X_scaler, xscaler_filename)
-    joblib.dump(Y_scaler, yscaler_filename)
-
-    # create an empty dict to hold epoch, training cost and testing cost
-    master_cost_holder = dict()
-
-    # read in hyperparameters from hyperparameters.json file
-    hyper_params = read_config_file('hyperparameters.json')
-
-    # define model parameters
-    RUN_NAME = "run 1 with 20 nodes"
-    learning_rate = float(hyper_params['learning_rate'])
-    training_epochs = int(hyper_params['training_epochs'])
-
-
-    # define the number of inputs and outputs in the neural network
-    number_of_inputs = 9
-    number_of_outputs = 1
-
-    # how many neurons do we want in each layer of the network
-    layer_1_nodes = int(hyper_params['layer_1_nodes'])
-    layer_2_nodes = int(hyper_params['layer_2_nodes'])
-    layer_3_nodes = int(hyper_params['layer_3_nodes'])
-
-    # section one: define the layers of the NN itself
-    # input layer
-    with tf.variable_scope('input'):
-        X = tf.placeholder(tf.float32, shape=(None, number_of_inputs))
-
-    # layer 1
-    with tf.variable_scope('layer_1'):
-        weights = tf.get_variable(name='weights1', shape=[number_of_inputs, layer_1_nodes], initializer=tf.contrib.layers.xavier_initializer())
-        biases = tf.get_variable(name='biases1', shape=[layer_1_nodes], initializer=tf.zeros_initializer())
-        layer_1_outputs = tf.nn.relu(tf.add(tf.matmul(X, weights), biases))
-
-    # layer 2
-    with tf.variable_scope('layer_2'):
-        weights = tf.get_variable(name='weights2', shape=[layer_1_nodes, layer_2_nodes],
-                                  initializer=tf.contrib.layers.xavier_initializer())
-        biases = tf.get_variable(name='biases2', shape=[layer_2_nodes], initializer=tf.zeros_initializer())
-        layer_2_outputs = tf.nn.relu(tf.add(tf.matmul(layer_1_outputs, weights), biases))
-
-    # layer 3
-    with tf.variable_scope('layer_3'):
-        weights = tf.get_variable(name='weights3', shape=[layer_2_nodes, layer_3_nodes],
-                                  initializer=tf.contrib.layers.xavier_initializer())
-        biases = tf.get_variable(name='biases3', shape=[layer_3_nodes], initializer=tf.zeros_initializer())
-        layer_3_outputs = tf.nn.relu(tf.add(tf.matmul(layer_2_outputs, weights), biases))
-
-    # output layer
-    with tf.variable_scope('output'):
-        weights = tf.get_variable(name='weights4', shape=[layer_3_nodes, number_of_outputs],
-                                  initializer=tf.contrib.layers.xavier_initializer())
-        biases = tf.get_variable(name='biases4', shape=[number_of_outputs], initializer=tf.zeros_initializer())
-        prediction = tf.nn.relu(tf.add(tf.matmul(layer_3_outputs, weights), biases))
-
-    # cost function with scalar output
-    with tf.variable_scope('cost'):
-        Y = tf.placeholder(tf.float32, shape=(None, 1))
-        cost = tf.reduce_mean(tf.squared_difference(prediction, Y))
-
-    # optimization operation on the graph
-    with tf.variable_scope('train'):
-        optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cost)
-
-    # logging tr.summary objects
-    with tf.variable_scope('logging'):
-        tf.summary.scalar('current cost', cost)
-        tf.summary.histogram('predicted_value', prediction)
-        summary = tf.summary.merge_all()
-
-    saver = tf.train.Saver()
-
-    # start a session to perform operation on the graph
-    with tf.Session() as session:
-        # initialize all wa
-        session.run(tf.global_variables_initializer())
-
-        training_writer = tf.summary.FileWriter(paths.output('./logs/{}/training'.format(RUN_NAME)), session.graph)
-        testing_writer = tf.summary.FileWriter(paths.output('./logs/{}/testing'.format(RUN_NAME)), session.graph)
-
-        for epoch in range(training_epochs):
-            session.run(optimizer, feed_dict={X: X_scaled_training, Y: Y_scaled_training})
-
-            if epoch % 5 == 0:
-                training_cost, training_summary = session.run([cost, summary],
-                                                              feed_dict={X: X_scaled_training, Y: Y_scaled_training})
-                testing_cost, testing_summary = session.run([cost, summary],
-                                                            feed_dict={X: X_scaled_testing, Y: Y_scaled_testing})
-                print(epoch, training_cost, testing_cost)
-
-                # write out training cost and testing cost per epoch to be read into dynamo later
-                per_epoch_cost = {
-                   epoch: {"training_cost": str(training_cost), "testing_cost": str(testing_cost)}
-                }
-
-                master_cost_holder.update(per_epoch_cost)
-
-                training_writer.add_summary(training_summary, epoch)
-                testing_writer.add_summary(testing_summary, epoch)
-
-        final_training_cost = session.run(cost, feed_dict={X: X_scaled_training, Y: Y_scaled_training})
-        final_testing_cost = session.run(cost, feed_dict={X: X_scaled_testing, Y: Y_scaled_testing})
-
-        print("Final Training Cost: {}".format(final_training_cost))
-        print("Final Testing Cost: {}".format(final_testing_cost))
-
-        # Now that you have the trained model test its predictive power
-        Y_predicted_scaled = session.run(prediction, feed_dict={X: X_scaled_testing})
-
-        # unscale the data back to it's original units (dollars)
-        Y_predicted = Y_scaler.inverse_transform(Y_predicted_scaled)
-
-        real_earnings = test_data_df['total_earnings'].values[0]
-        predicted_earnings = Y_predicted[0][0]
-
-        print("The actual earnings of Game #1 were ${}".format(real_earnings))
-        print("Our neural network predicted earnings of ${}".format(predicted_earnings))
-
-        save_path = saver.save(session, paths.output('logs/trained_model.ckpt'))
-        print("Model saved: {}".format(save_path))
-
-        # saving the model using SavedModelBuilder
-        model_builder = tf.saved_model.builder.SavedModelBuilder(paths.model('exported_model'))
-
-        inputs = {
-            'input': tf.saved_model.utils.build_tensor_info(X)
-        }
-        outputs = {
-            'earnings': tf.saved_model.utils.build_tensor_info(prediction)
-        }
-
-        signature_def = tf.saved_model.signature_def_utils.build_signature_def(
-            inputs=inputs,
-            outputs=outputs,
-            method_name=tf.saved_model.signature_constants.PREDICT_METHOD_NAME
-        )
-
-        model_builder.add_meta_graph_and_variables(
-            session,
-            signature_def_map={tf.saved_model.signature_constants.DEFAULT_SERVING_SIGNATURE_DEF_KEY: signature_def},
-            tags=[tf.saved_model.tag_constants.SERVING]
-        )
-        model_builder.save()
-
-    with open(paths.model('cost.json'), 'w') as outfile:
-        json.dump(master_cost_holder, outfile)
-
+    optimized_classifier = generate_model(x_train, y_train, vocab_size, max_length)
+    optimized_classifier.model.save(os.path.join(model_path, 'ann-churn.h5'))
 
 if __name__ == "__main__":
     entry_point()
