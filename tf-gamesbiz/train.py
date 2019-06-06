@@ -35,7 +35,7 @@ def entry_point():
     Y_training = training_data_df[['total_earnings']].values
 
     # load testing data set from csv file
-    test_data_df = pd.read_csv(paths.input('testing', 'sales_data_test.csv'), dtype=float)
+    test_data_df = pd.read_csv(paths.input('testing', 'tweets.csv'), dtype=float)
 
     X_testing = test_data_df.drop('total_earnings', axis=1).values
     Y_testing = test_data_df[['total_earnings']].values
