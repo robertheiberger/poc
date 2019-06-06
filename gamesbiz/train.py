@@ -219,7 +219,7 @@ def data_process(raw_data):
     
     raw_data=raw_data[raw_data['sentiment']!='MIXED']
 
-    raw_data['tweet'] = raw_data['tweet'].apply(lambda x: clean_tokens(str(x)))
+    #raw_data['tweet'] = raw_data['tweet'].apply(lambda x: clean_tokens(str(x)))
 
     x_train = raw_data['tweet']
     y_train = raw_data['sentiment']
