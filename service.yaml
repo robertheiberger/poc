@@ -1,0 +1,49 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: grafana
+      meta.helm.sh/release-namespace: grafana
+    creationTimestamp: "2023-12-10T20:23:37Z"
+    finalizers:
+    - service.kubernetes.io/load-balancer-cleanup
+    labels:
+      app.kubernetes.io/instance: grafana
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: grafana
+      app.kubernetes.io/version: 10.2.2
+      helm.sh/chart: grafana-7.0.11
+    name: grafana
+    namespace: grafana
+    resourceVersion: "248532"
+    uid: 093801c0-a61c-411f-8a24-ee27ccfcd614
+  spec:
+    allocateLoadBalancerNodePorts: true
+    clusterIP: 172.20.114.220
+    clusterIPs:
+    - 172.20.114.220
+    externalTrafficPolicy: Cluster
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: service
+      nodePort: 30955
+      port: 80
+      protocol: TCP
+      targetPort: 3000
+    selector:
+      app.kubernetes.io/instance: grafana
+      app.kubernetes.io/name: grafana
+    sessionAffinity: None
+    type: LoadBalancer
+  status:
+    loadBalancer:
+      ingress:
+      - hostname: a093801c0a61c411f8a24ee27ccfcd61-1505976511.us-east-1.elb.amazonaws.com
+kind: List
+metadata:
+  resourceVersion: ""

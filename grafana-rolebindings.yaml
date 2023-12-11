@@ -1,0 +1,30 @@
+apiVersion: v1
+items:
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: RoleBinding
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: grafana
+      meta.helm.sh/release-namespace: grafana
+    creationTimestamp: "2023-12-10T20:23:37Z"
+    labels:
+      app.kubernetes.io/instance: grafana
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: grafana
+      app.kubernetes.io/version: 10.2.2
+      helm.sh/chart: grafana-7.0.11
+    name: grafana
+    namespace: grafana
+    resourceVersion: "248487"
+    uid: 9aca82d8-3632-41fd-a5a4-f3a8be34af6a
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: Role
+    name: grafana
+  subjects:
+  - kind: ServiceAccount
+    name: grafana
+    namespace: grafana
+kind: List
+metadata:
+  resourceVersion: ""
