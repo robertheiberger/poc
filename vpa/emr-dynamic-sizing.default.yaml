@@ -1,0 +1,245 @@
+apiVersion: operators.coreos.com/v1
+kind: Operator
+metadata:
+  creationTimestamp: "2025-02-15T20:27:46Z"
+  generation: 1
+  name: emr-dynamic-sizing.default
+  resourceVersion: "5958"
+  uid: 4bc2ee22-ab4c-469f-91fd-315dbf927f39
+spec: {}
+status:
+  components:
+    labelSelector:
+      matchExpressions:
+      - key: operators.coreos.com/emr-dynamic-sizing.default
+        operator: Exists
+    refs:
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRole
+      name: emr-dynamic-sizing.v0.0.-csfK2TGpERxsZyrBxbqueXH5u52W1NVjrMJFPZ
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRole
+      name: emr-dynamic-sizing.v0.0.2-1VWVzSHkwgJhG53qnGdloTgueImuTB4vyi7u0b
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRole
+      name: emr-dynamic-sizing.v0.0.2-4guGjJZfkBQ5HNx10Rtmoc8kW6rRZOv9a8zj7W
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRole
+      name: emr-dynamic-sizing.v0.0.2-4mBSAZBsHgE7pol19d4L2aWF5oUNby73aaQKzZ
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRole
+      name: emr-dynamic-sizing.v0.0.2-cKnKiHYnkT37PeTEMwX6si4ZuA5r8aK6GOneBq
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRoleBinding
+      name: emr-dynamic-sizing.v0.0.-csfK2TGpERxsZyrBxbqueXH5u52W1NVjrMJFPZ
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRoleBinding
+      name: emr-dynamic-sizing.v0.0.2-1VWVzSHkwgJhG53qnGdloTgueImuTB4vyi7u0b
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRoleBinding
+      name: emr-dynamic-sizing.v0.0.2-4guGjJZfkBQ5HNx10Rtmoc8kW6rRZOv9a8zj7W
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRoleBinding
+      name: emr-dynamic-sizing.v0.0.2-4mBSAZBsHgE7pol19d4L2aWF5oUNby73aaQKzZ
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRoleBinding
+      name: emr-dynamic-sizing.v0.0.2-cKnKiHYnkT37PeTEMwX6si4ZuA5r8aK6GOneBq
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRoleBinding
+      name: vpa-admission-controller-service-system:auth-delegator
+    - apiVersion: operators.coreos.com/v1alpha1
+      conditions:
+      - lastTransitionTime: "2025-02-15T20:28:28Z"
+        lastUpdateTime: "2025-02-15T20:28:28Z"
+        message: install strategy completed with no errors
+        reason: InstallSucceeded
+        status: "True"
+        type: Succeeded
+      kind: ClusterServiceVersion
+      name: emr-dynamic-sizing.v0.0.2
+      namespace: default
+    - apiVersion: apiextensions.k8s.io/v1
+      conditions:
+      - lastTransitionTime: "2025-02-15T20:27:55Z"
+        message: no conflicts found
+        reason: NoConflicts
+        status: "True"
+        type: NamesAccepted
+      - lastTransitionTime: "2025-02-15T20:27:55Z"
+        message: the initial names have been accepted
+        reason: InitialNamesAccepted
+        status: "True"
+        type: Established
+      kind: CustomResourceDefinition
+      name: jobruns.dynamicsizing.emr.services.k8s.aws
+    - apiVersion: apiextensions.k8s.io/v1
+      conditions:
+      - lastTransitionTime: "2025-02-15T20:27:55Z"
+        message: no conflicts found
+        reason: NoConflicts
+        status: "True"
+        type: NamesAccepted
+      - lastTransitionTime: "2025-02-15T20:27:55Z"
+        message: the initial names have been accepted
+        reason: InitialNamesAccepted
+        status: "True"
+        type: Established
+      - lastTransitionTime: "2025-02-15T20:27:55Z"
+        message: approved in https://github.com/kubernetes/kubernetes/pull/63797
+        reason: ApprovedAnnotation
+        status: "True"
+        type: KubernetesAPIApprovalPolicyConformant
+      kind: CustomResourceDefinition
+      name: verticalpodautoscalercheckpoints.autoscaling.k8s.io
+    - apiVersion: apiextensions.k8s.io/v1
+      conditions:
+      - lastTransitionTime: "2025-02-15T20:27:55Z"
+        message: no conflicts found
+        reason: NoConflicts
+        status: "True"
+        type: NamesAccepted
+      - lastTransitionTime: "2025-02-15T20:27:55Z"
+        message: the initial names have been accepted
+        reason: InitialNamesAccepted
+        status: "True"
+        type: Established
+      - lastTransitionTime: "2025-02-15T20:27:55Z"
+        message: approved in https://github.com/kubernetes/kubernetes/pull/63797
+        reason: ApprovedAnnotation
+        status: "True"
+        type: KubernetesAPIApprovalPolicyConformant
+      kind: CustomResourceDefinition
+      name: verticalpodautoscalers.autoscaling.k8s.io
+    - apiVersion: apps/v1
+      conditions:
+      - lastTransitionTime: "2025-02-15T20:28:28Z"
+        lastUpdateTime: "2025-02-15T20:28:28Z"
+        message: Deployment has minimum availability.
+        reason: MinimumReplicasAvailable
+        status: "True"
+        type: Available
+      - lastTransitionTime: "2025-02-15T20:27:57Z"
+        lastUpdateTime: "2025-02-15T20:28:28Z"
+        message: ReplicaSet "emr-dynamic-sizing-controller-manager-7847c4fcbc" has
+          successfully progressed.
+        reason: NewReplicaSetAvailable
+        status: "True"
+        type: Progressing
+      kind: Deployment
+      name: emr-dynamic-sizing-controller-manager
+      namespace: default
+    - apiVersion: apps/v1
+      conditions:
+      - lastTransitionTime: "2025-02-15T20:28:02Z"
+        lastUpdateTime: "2025-02-15T20:28:02Z"
+        message: Deployment has minimum availability.
+        reason: MinimumReplicasAvailable
+        status: "True"
+        type: Available
+      - lastTransitionTime: "2025-02-15T20:27:57Z"
+        lastUpdateTime: "2025-02-15T20:28:02Z"
+        message: ReplicaSet "vpa-admission-controller-7ffc4556b5" has successfully
+          progressed.
+        reason: NewReplicaSetAvailable
+        status: "True"
+        type: Progressing
+      kind: Deployment
+      name: vpa-admission-controller
+      namespace: default
+    - apiVersion: apps/v1
+      conditions:
+      - lastTransitionTime: "2025-02-15T20:28:02Z"
+        lastUpdateTime: "2025-02-15T20:28:02Z"
+        message: Deployment has minimum availability.
+        reason: MinimumReplicasAvailable
+        status: "True"
+        type: Available
+      - lastTransitionTime: "2025-02-15T20:27:58Z"
+        lastUpdateTime: "2025-02-15T20:28:02Z"
+        message: ReplicaSet "vpa-recommender-6f64fcbb48" has successfully progressed.
+        reason: NewReplicaSetAvailable
+        status: "True"
+        type: Progressing
+      kind: Deployment
+      name: vpa-recommender
+      namespace: default
+    - apiVersion: apps/v1
+      conditions:
+      - lastTransitionTime: "2025-02-15T20:27:59Z"
+        lastUpdateTime: "2025-02-15T20:27:59Z"
+        message: Deployment has minimum availability.
+        reason: MinimumReplicasAvailable
+        status: "True"
+        type: Available
+      - lastTransitionTime: "2025-02-15T20:27:58Z"
+        lastUpdateTime: "2025-02-15T20:27:59Z"
+        message: ReplicaSet "vpa-updater-54b8d56d7f" has successfully progressed.
+        reason: NewReplicaSetAvailable
+        status: "True"
+        type: Progressing
+      kind: Deployment
+      name: vpa-updater
+      namespace: default
+    - apiVersion: operators.coreos.com/v1alpha1
+      conditions:
+      - lastTransitionTime: "2025-02-15T20:28:03Z"
+        lastUpdateTime: "2025-02-15T20:28:03Z"
+        status: "True"
+        type: Installed
+      kind: InstallPlan
+      name: install-5vf8x
+      namespace: default
+    - apiVersion: operators.coreos.com/v2
+      kind: OperatorCondition
+      name: emr-dynamic-sizing.v0.0.2
+      namespace: default
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: Role
+      name: emr-dynamic-sizing.v0.0.-csfK2TGpERxsZyrBxbqueXH5u52W1NVjrMJFPZ
+      namespace: default
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: Role
+      name: vpa-admission-controller-service-cert
+      namespace: default
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: RoleBinding
+      name: emr-dynamic-sizing.v0.0.-csfK2TGpERxsZyrBxbqueXH5u52W1NVjrMJFPZ
+      namespace: default
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: RoleBinding
+      name: vpa-admission-controller-service-cert
+      namespace: default
+    - apiVersion: v1
+      kind: Secret
+      name: vpa-admission-controller-service-cert
+      namespace: default
+    - apiVersion: v1
+      kind: Service
+      name: vpa-admission-controller-service
+      namespace: default
+    - apiVersion: v1
+      kind: ServiceAccount
+      name: emr-dynamic-sizing-controller-manager
+      namespace: default
+    - apiVersion: v1
+      kind: ServiceAccount
+      name: vpa-admission-controller
+      namespace: default
+    - apiVersion: v1
+      kind: ServiceAccount
+      name: vpa-recommender
+      namespace: default
+    - apiVersion: v1
+      kind: ServiceAccount
+      name: vpa-updater
+      namespace: default
+    - apiVersion: operators.coreos.com/v1alpha1
+      conditions:
+      - lastTransitionTime: "2025-02-15T20:27:47Z"
+        message: all available catalogsources are healthy
+        reason: AllCatalogSourcesHealthy
+        status: "False"
+        type: CatalogSourcesUnhealthy
+      kind: Subscription
+      name: emr-dynamic-sizing-v0-0-2-sub
+      namespace: default

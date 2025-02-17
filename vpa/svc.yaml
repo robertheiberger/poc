@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2025-02-15T20:27:57Z"
+  labels:
+    olm.managed: "true"
+    operators.coreos.com/emr-dynamic-sizing.default: ""
+  name: vpa-admission-controller-service
+  namespace: default
+  ownerReferences:
+  - apiVersion: operators.coreos.com/v1alpha1
+    blockOwnerDeletion: false
+    controller: false
+    kind: ClusterServiceVersion
+    name: emr-dynamic-sizing.v0.0.2
+    uid: 61062d54-efff-49c0-995d-496d8593d54f
+  resourceVersion: "5662"
+  uid: 70ba46a2-ed10-4fc6-862f-4884b3756d09
+spec:
+  clusterIP: 10.100.35.44
+  clusterIPs:
+  - 10.100.35.44
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: "443"
+    port: 443
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    app: vpa-admission-controller
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

@@ -1,0 +1,17 @@
+apiVersion: v1
+binaryData:
+  extraFBC: H4sIAAAAAAAA/8xXS28bNxC+61cM9lyuHn52b27sgxO4CaIiBVoUxWg5kpjlCyR3VTnNfy+4Lz0iOTLqBNGJIjnffDOc+cjlNMdShldL1JpkBsaSw2Ac87xgrtRsVmouaaBRUQakHONrjUrkzItHoRcDny9JYQZGqtRiXuCCBoyxAengBPlswOCYbVqN0lE6abGPeW5Bv+o8b0KonQtVW1xdXFxenV+fn0/OJikvXEq5S0vPCH1g4xQVPhqNK5/mRg13oVlx7VlPyUjV0hlGFlfpRTpiTxhkEgP5cDRrXeRPxWZdRAttDsPaUhPnoioGABXKkrIBAMDCmdJmgGUwPkcZ4YtrnwpTrxZC8ww+RKQc5TvDb9p95Or1ipwXRmdQjb+TmxkFnHwjX6+WlBfWCB2+U3DHHZ4eZnvwbWmQcqknV4mcfE0CV36LxWsze1/qfWco7RJ3Y+yaccdjO/nrsW7egW1qdBsz91WqKCDHgLvAqLUJGITRvpkAQKkY/YPKSvIZ/MvaaYA/+xHAp60xQIJWfGjcJxkkX0/MsAs9+WkXKCYrQjTp2l/tYkiyPQIAicQZSX9gpaZn06KckdMUKJbHMHeEgTibraO3LzO65/kIitA+oM4pYnw0s6h+vk7caeYKNS56EkXpg1Hi8UTjqFEbv6fZWHSBmfmRkPcQPu9DJrsuu1AHTxgl3lKeZKBLKbcWPvfjv9pRjhZnQopaN+EX9CKH+5jd3q49sZuQQTIZTc7YaMwml7+Nf87Or7KLsz86Hp2W+7QbzR0qWhlXxBTMSiE5ub17qxqnk8t0dBqEdeYj5eFviWtThgwWpk5zixx3VOesLu+mxayYNuV/S3OhRdNs8KlJQu74LfncCbvThGaliXd/GPDNlk5KQHgIS4JpfZfC3Lj6b3M2Hm7e3fdJ5sJbietGPV6bGXRKBIfkKf6aC7DFSk8UOjiobV0Ip4vxhkDV7raGY78773f79Ijw7zH5ETg018oJRE5x/5KBv6S/TZA7BXv38B5umxqCaV1EsXgR3vTiBG/bRoOwxACkcSbJ92S6m6kMpuFQl3uENRru3kxjpfp08EWtH7kpRSMsD4ZT23AMfGmtcYF4BsGV1HpsrtC3Kx3xvMWcTtg+FXoh6TkWD6UM4jkGN1L229tXBq1XxvE+HlJuM2JGMyp8O9FllW0dar0khS56gKYc7pTbO7qWR+lkBssQrM+GwwMvZW4UikZQFIbSibDOYCOK1plKRB0ebBffze/TQ/Dxqd88+usXPyk3nFMEJT+MYTmK73Z+H78e6lf3j/Id0cWVJC9PasPkKW+OFsIHt26bdrh15MPKIkOuhI/ty3KjgzNSkstG6XhSX4bPx3OUG6VI8/8HU1qO4SDE9qdjcyT/BQAA//9mTV5yCw8AAA==
+kind: ConfigMap
+metadata:
+  annotations:
+    olm.contentEncoding: gzip+base64
+  creationTimestamp: "2025-02-15T20:27:38Z"
+  name: emr-dynamic-sizing-catalog-configmap-partition-1
+  namespace: default
+  ownerReferences:
+  - apiVersion: operators.coreos.com/v1alpha1
+    kind: CatalogSource
+    name: emr-dynamic-sizing-catalog
+    uid: 52094770-7c65-45b9-9133-9b177352c788
+  resourceVersion: "5424"
+  uid: 143e427f-c51d-4fbb-a08a-db87248bc144

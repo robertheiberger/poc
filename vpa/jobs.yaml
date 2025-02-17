@@ -1,0 +1,168 @@
+apiVersion: v1
+items:
+- apiVersion: batch/v1
+  kind: Job
+  metadata:
+    creationTimestamp: "2025-02-15T20:27:47Z"
+    generation: 1
+    labels:
+      olm.managed: "true"
+      operatorframework.io/bundle-unpack-ref: 4dc0ce69177ec3a1a8ffbeeabf6e8fe1fd4270106a02df5863176ca72fa7de8
+    name: 4dc0ce69177ec3a1a8ffbeeabf6e8fe1fd4270106a02df5863176ca72fa7de8
+    namespace: default
+    ownerReferences:
+    - apiVersion: v1
+      blockOwnerDeletion: false
+      controller: false
+      kind: ConfigMap
+      name: 4dc0ce69177ec3a1a8ffbeeabf6e8fe1fd4270106a02df5863176ca72fa7de8
+      uid: 9a7e1170-622f-4245-9008-002c71c300ad
+    resourceVersion: "5528"
+    uid: 449e90c6-7737-4efe-9382-dbb22373d110
+  spec:
+    activeDeadlineSeconds: 600
+    backoffLimit: 3
+    completionMode: NonIndexed
+    completions: 1
+    manualSelector: false
+    parallelism: 1
+    podReplacementPolicy: TerminatingOrFailed
+    selector:
+      matchLabels:
+        batch.kubernetes.io/controller-uid: 449e90c6-7737-4efe-9382-dbb22373d110
+    suspend: false
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          batch.kubernetes.io/controller-uid: 449e90c6-7737-4efe-9382-dbb22373d110
+          batch.kubernetes.io/job-name: 4dc0ce69177ec3a1a8ffbeeabf6e8fe1fd4270106a02df5863176ca72fa7de8
+          controller-uid: 449e90c6-7737-4efe-9382-dbb22373d110
+          job-name: 4dc0ce69177ec3a1a8ffbeeabf6e8fe1fd4270106a02df5863176ca72fa7de8
+          olm.managed: "true"
+        name: 4dc0ce69177ec3a1a8ffbeeabf6e8fe1fd4270106a02df5863176ca72fa7de8
+      spec:
+        containers:
+        - command:
+          - opm
+          - alpha
+          - bundle
+          - extract
+          - -m
+          - /bundle/
+          - -n
+          - default
+          - -c
+          - 4dc0ce69177ec3a1a8ffbeeabf6e8fe1fd4270106a02df5863176ca72fa7de8
+          - -z
+          env:
+          - name: CONTAINER_IMAGE
+            value: 755674844232.dkr.ecr.us-east-1.amazonaws.com/dynamic-sizing-k8s-operator-olm-bundle/emr-7.5.0-dynamic-sizing-k8s-operator:latest
+          image: quay.io/operator-framework/opm@sha256:3bbabf4be41d2d071ce5dd2fe35040139848331c95dfb23ff06f5ba47fd13203
+          imagePullPolicy: IfNotPresent
+          name: extract
+          resources:
+            requests:
+              cpu: 10m
+              memory: 50Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: FallbackToLogsOnError
+          volumeMounts:
+          - mountPath: /bundle
+            name: bundle
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - {}
+        initContainers:
+        - command:
+          - /bin/cp
+          - -Rv
+          - /bin/cpb
+          - /util/cpb
+          image: quay.io/operator-framework/olm@sha256:f41fcb25b37a6f280b5929f419b393141f0d72edcafe3b98232fc8af4e8a8139
+          imagePullPolicy: IfNotPresent
+          name: util
+          resources:
+            requests:
+              cpu: 10m
+              memory: 50Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: FallbackToLogsOnError
+          volumeMounts:
+          - mountPath: /util
+            name: util
+        - command:
+          - /util/cpb
+          - /bundle
+          image: 755674844232.dkr.ecr.us-east-1.amazonaws.com/dynamic-sizing-k8s-operator-olm-bundle/emr-7.5.0-dynamic-sizing-k8s-operator:latest
+          imagePullPolicy: Always
+          name: pull
+          resources:
+            requests:
+              cpu: 10m
+              memory: 50Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: FallbackToLogsOnError
+          volumeMounts:
+          - mountPath: /bundle
+            name: bundle
+          - mountPath: /util
+            name: util
+        nodeSelector:
+          kubernetes.io/os: linux
+        restartPolicy: Never
+        schedulerName: default-scheduler
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1001
+          seccompProfile:
+            type: RuntimeDefault
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - key: kubernetes.io/arch
+          operator: Equal
+          value: amd64
+        - key: kubernetes.io/arch
+          operator: Equal
+          value: arm64
+        - key: kubernetes.io/arch
+          operator: Equal
+          value: ppc64le
+        - key: kubernetes.io/arch
+          operator: Equal
+          value: s390x
+        volumes:
+        - emptyDir: {}
+          name: bundle
+        - emptyDir: {}
+          name: util
+  status:
+    completionTime: "2025-02-15T20:27:52Z"
+    conditions:
+    - lastProbeTime: "2025-02-15T20:27:52Z"
+      lastTransitionTime: "2025-02-15T20:27:52Z"
+      status: "True"
+      type: Complete
+    ready: 0
+    startTime: "2025-02-15T20:27:47Z"
+    succeeded: 1
+    terminating: 0
+    uncountedTerminatedPods: {}
+kind: List
+metadata:
+  resourceVersion: ""

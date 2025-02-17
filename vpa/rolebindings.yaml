@@ -1,0 +1,118 @@
+apiVersion: v1
+items:
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: RoleBinding
+  metadata:
+    creationTimestamp: "2025-02-15T20:27:47Z"
+    labels:
+      olm.managed: "true"
+    name: 4dc0ce69177ec3a1a8ffbeeabf6e8fe1fd4270106a02df5863176ca72fa7de8
+    namespace: default
+    ownerReferences:
+    - apiVersion: v1
+      blockOwnerDeletion: false
+      controller: false
+      kind: ConfigMap
+      name: 4dc0ce69177ec3a1a8ffbeeabf6e8fe1fd4270106a02df5863176ca72fa7de8
+      uid: 9a7e1170-622f-4245-9008-002c71c300ad
+    resourceVersion: "5486"
+    uid: c118aa08-6b4d-40d0-9541-ee6d78a4a9e6
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: Role
+    name: 4dc0ce69177ec3a1a8ffbeeabf6e8fe1fd4270106a02df5863176ca72fa7de8
+  subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: default
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: RoleBinding
+  metadata:
+    creationTimestamp: "2025-02-15T20:27:56Z"
+    labels:
+      olm.managed: "true"
+      olm.owner: emr-dynamic-sizing.v0.0.2
+      olm.owner.kind: ClusterServiceVersion
+      olm.owner.namespace: default
+      olm.permissions.hash: aHL934i0Mh2mogcSjIpuhJpDYtwmZvUipkiYy7
+      operators.coreos.com/emr-dynamic-sizing.default: ""
+    name: emr-dynamic-sizing.v0.0.-csfK2TGpERxsZyrBxbqueXH5u52W1NVjrMJFPZ
+    namespace: default
+    ownerReferences:
+    - apiVersion: operators.coreos.com/v1alpha1
+      blockOwnerDeletion: false
+      controller: false
+      kind: ClusterServiceVersion
+      name: emr-dynamic-sizing.v0.0.2
+      uid: 61062d54-efff-49c0-995d-496d8593d54f
+    resourceVersion: "5790"
+    uid: e33f3410-31af-42af-985b-e5574e7f3a92
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: Role
+    name: emr-dynamic-sizing.v0.0.-csfK2TGpERxsZyrBxbqueXH5u52W1NVjrMJFPZ
+  subjects:
+  - kind: ServiceAccount
+    name: emr-dynamic-sizing-controller-manager
+    namespace: default
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: RoleBinding
+  metadata:
+    creationTimestamp: "2025-02-15T20:27:55Z"
+    labels:
+      olm.managed: "true"
+    name: emr-dynamic-sizing.v0.0.2
+    namespace: default
+    ownerReferences:
+    - apiVersion: operators.coreos.com/v2
+      blockOwnerDeletion: false
+      controller: true
+      kind: OperatorCondition
+      name: emr-dynamic-sizing.v0.0.2
+      uid: 4ea448e2-140f-4c24-b94c-a2fe6f111238
+    resourceVersion: "5561"
+    uid: 963d343b-716f-40be-9ff1-3a140d9be788
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: Role
+    name: emr-dynamic-sizing.v0.0.2
+  subjects:
+  - kind: ServiceAccount
+    name: emr-dynamic-sizing-controller-manager
+  - kind: ServiceAccount
+    name: vpa-admission-controller
+  - kind: ServiceAccount
+    name: vpa-recommender
+  - kind: ServiceAccount
+    name: vpa-updater
+  - kind: ServiceAccount
+    name: emr-dynamic-sizing-controller-manager
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: RoleBinding
+  metadata:
+    creationTimestamp: "2025-02-15T20:27:57Z"
+    labels:
+      olm.managed: "true"
+      operators.coreos.com/emr-dynamic-sizing.default: ""
+    name: vpa-admission-controller-service-cert
+    namespace: default
+    ownerReferences:
+    - apiVersion: operators.coreos.com/v1alpha1
+      blockOwnerDeletion: false
+      controller: false
+      kind: ClusterServiceVersion
+      name: emr-dynamic-sizing.v0.0.2
+      uid: 61062d54-efff-49c0-995d-496d8593d54f
+    resourceVersion: "5674"
+    uid: cfd42c76-382c-4661-a313-c1445da3a928
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: Role
+    name: vpa-admission-controller-service-cert
+  subjects:
+  - kind: ServiceAccount
+    name: vpa-admission-controller
+    namespace: default
+kind: List
+metadata:
+  resourceVersion: ""

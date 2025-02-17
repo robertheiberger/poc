@@ -1,0 +1,85 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: ServiceAccount
+  metadata:
+    creationTimestamp: "2025-02-15T19:59:01Z"
+    name: default
+    namespace: default
+    resourceVersion: "355"
+    uid: e41d7263-782f-46fa-aee3-5183b921db4e
+- apiVersion: v1
+  kind: ServiceAccount
+  metadata:
+    creationTimestamp: "2025-02-15T20:27:55Z"
+    labels:
+      olm.managed: "true"
+      operators.coreos.com/emr-dynamic-sizing.default: ""
+    name: emr-dynamic-sizing-controller-manager
+    namespace: default
+    ownerReferences:
+    - apiVersion: operators.coreos.com/v1alpha1
+      blockOwnerDeletion: false
+      controller: false
+      kind: ClusterServiceVersion
+      name: emr-dynamic-sizing.v0.0.2
+      uid: 61062d54-efff-49c0-995d-496d8593d54f
+    resourceVersion: "5775"
+    uid: b0d069fd-03f4-4074-baf1-ecc2b1ee0d9f
+- apiVersion: v1
+  kind: ServiceAccount
+  metadata:
+    creationTimestamp: "2025-02-15T20:27:56Z"
+    labels:
+      olm.managed: "true"
+      operators.coreos.com/emr-dynamic-sizing.default: ""
+    name: vpa-admission-controller
+    namespace: default
+    ownerReferences:
+    - apiVersion: operators.coreos.com/v1alpha1
+      blockOwnerDeletion: false
+      controller: false
+      kind: ClusterServiceVersion
+      name: emr-dynamic-sizing.v0.0.2
+      uid: 61062d54-efff-49c0-995d-496d8593d54f
+    resourceVersion: "5808"
+    uid: ea091f2f-3b8b-4009-919e-0a95c16b8d3b
+- apiVersion: v1
+  kind: ServiceAccount
+  metadata:
+    creationTimestamp: "2025-02-15T20:27:56Z"
+    labels:
+      olm.managed: "true"
+      operators.coreos.com/emr-dynamic-sizing.default: ""
+    name: vpa-recommender
+    namespace: default
+    ownerReferences:
+    - apiVersion: operators.coreos.com/v1alpha1
+      blockOwnerDeletion: false
+      controller: false
+      kind: ClusterServiceVersion
+      name: emr-dynamic-sizing.v0.0.2
+      uid: 61062d54-efff-49c0-995d-496d8593d54f
+    resourceVersion: "5822"
+    uid: 2e9dc5c4-fd38-4ae4-ab37-40f6c688db1d
+- apiVersion: v1
+  kind: ServiceAccount
+  metadata:
+    creationTimestamp: "2025-02-15T20:27:57Z"
+    labels:
+      olm.managed: "true"
+      operators.coreos.com/emr-dynamic-sizing.default: ""
+    name: vpa-updater
+    namespace: default
+    ownerReferences:
+    - apiVersion: operators.coreos.com/v1alpha1
+      blockOwnerDeletion: false
+      controller: false
+      kind: ClusterServiceVersion
+      name: emr-dynamic-sizing.v0.0.2
+      uid: 61062d54-efff-49c0-995d-496d8593d54f
+    resourceVersion: "5837"
+    uid: 24205fe0-3a09-40ba-899a-087106087a56
+kind: List
+metadata:
+  resourceVersion: ""

@@ -1,0 +1,567 @@
+apiVersion: v1
+items:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2025-02-15T20:27:57Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/component: manager
+      app.kubernetes.io/created-by: emr-dynamic-sizing
+      app.kubernetes.io/instance: controller-manager
+      app.kubernetes.io/managed-by: kustomize
+      app.kubernetes.io/name: deployment
+      app.kubernetes.io/part-of: emr-dynamic-sizing
+      control-plane: controller-manager
+      olm.deployment-spec-hash: 6KN1iEJwdS4p0vZHgGxLr9UOnKHStDwVCwMZ3C
+      olm.managed: "true"
+      olm.owner: emr-dynamic-sizing.v0.0.2
+      olm.owner.kind: ClusterServiceVersion
+      olm.owner.namespace: default
+      operators.coreos.com/emr-dynamic-sizing.default: ""
+    name: emr-dynamic-sizing-controller-manager
+    namespace: default
+    ownerReferences:
+    - apiVersion: operators.coreos.com/v1alpha1
+      blockOwnerDeletion: false
+      controller: false
+      kind: ClusterServiceVersion
+      name: emr-dynamic-sizing.v0.0.2
+      uid: 61062d54-efff-49c0-995d-496d8593d54f
+    resourceVersion: "5953"
+    uid: caac8c50-a253-47f7-a9df-023917b82785
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 1
+    selector:
+      matchLabels:
+        control-plane: controller-manager
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          alm-examples: |-
+            [
+              {
+                "apiVersion": "dynamicsizing.emr.services.k8s.aws/v1alpha1",
+                "kind": "JobRun",
+                "metadata": {
+                  "labels": {
+                    "app.kubernetes.io/created-by": "emr-dynamic-sizing",
+                    "app.kubernetes.io/instance": "jobrun-sample",
+                    "app.kubernetes.io/managed-by": "kustomize",
+                    "app.kubernetes.io/name": "jobrun",
+                    "app.kubernetes.io/part-of": "emr-dynamic-sizing"
+                  },
+                  "name": "jobrun-sample"
+                },
+                "spec": null
+              }
+            ]
+          capabilities: Basic Install
+          createdAt: "2023-01-26T19:47:53Z"
+          kubectl.kubernetes.io/default-container: manager
+          olm.operatorGroup: operator-sdk-og
+          olm.operatorNamespace: default
+          olm.targetNamespaces: ""
+          operatorframework.io/properties: '{"properties":[{"type":"olm.gvk","value":{"group":"autoscaling.k8s.io","kind":"VerticalPodAutoscaler","version":"v1"}},{"type":"olm.gvk","value":{"group":"autoscaling.k8s.io","kind":"VerticalPodAutoscaler","version":"v1beta2"}},{"type":"olm.gvk","value":{"group":"autoscaling.k8s.io","kind":"VerticalPodAutoscalerCheckpoint","version":"v1"}},{"type":"olm.gvk","value":{"group":"autoscaling.k8s.io","kind":"VerticalPodAutoscalerCheckpoint","version":"v1beta2"}},{"type":"olm.gvk","value":{"group":"dynamicsizing.emr.services.k8s.aws","kind":"JobRun","version":"v1alpha1"}},{"type":"olm.package","value":{"packageName":"emr-dynamic-sizing","version":"0.0.2"}}]}'
+          operators.operatorframework.io/builder: operator-sdk-v1.26.0
+          operators.operatorframework.io/project_layout: go.kubebuilder.io/v4-alpha
+        creationTimestamp: null
+        labels:
+          control-plane: controller-manager
+      spec:
+        containers:
+        - args:
+          - --health-probe-bind-address=:8081
+          - --leader-elect
+          command:
+          - /manager
+          env:
+          - name: OPERATOR_CONDITION_NAME
+            value: emr-dynamic-sizing.v0.0.2
+          image: 755674844232.dkr.ecr.us-east-1.amazonaws.com/dynamic-sizing-k8s-operator/emr-7.5.0:latest
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthz
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: manager
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /readyz
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 500m
+              memory: 128Mi
+            requests:
+              cpu: 10m
+              memory: 64Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 65532
+        serviceAccount: emr-dynamic-sizing-controller-manager
+        serviceAccountName: emr-dynamic-sizing-controller-manager
+        terminationGracePeriodSeconds: 10
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2025-02-15T20:28:28Z"
+      lastUpdateTime: "2025-02-15T20:28:28Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2025-02-15T20:27:57Z"
+      lastUpdateTime: "2025-02-15T20:28:28Z"
+      message: ReplicaSet "emr-dynamic-sizing-controller-manager-7847c4fcbc" has successfully
+        progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2025-02-15T20:27:57Z"
+    generation: 1
+    labels:
+      olm.deployment-spec-hash: 2Vrmd9GWHuYRQVbzVg6H7S5lOcyqxgrVLCv19b
+      olm.managed: "true"
+      olm.owner: emr-dynamic-sizing.v0.0.2
+      olm.owner.kind: ClusterServiceVersion
+      olm.owner.namespace: default
+      operators.coreos.com/emr-dynamic-sizing.default: ""
+    name: vpa-admission-controller
+    namespace: default
+    ownerReferences:
+    - apiVersion: operators.coreos.com/v1alpha1
+      blockOwnerDeletion: false
+      controller: false
+      kind: ClusterServiceVersion
+      name: emr-dynamic-sizing.v0.0.2
+      uid: 61062d54-efff-49c0-995d-496d8593d54f
+    resourceVersion: "5855"
+    uid: 0d2216f4-3b62-4ab9-b0ad-190d3cf48778
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 1
+    selector:
+      matchLabels:
+        app: vpa-admission-controller
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          alm-examples: |-
+            [
+              {
+                "apiVersion": "dynamicsizing.emr.services.k8s.aws/v1alpha1",
+                "kind": "JobRun",
+                "metadata": {
+                  "labels": {
+                    "app.kubernetes.io/created-by": "emr-dynamic-sizing",
+                    "app.kubernetes.io/instance": "jobrun-sample",
+                    "app.kubernetes.io/managed-by": "kustomize",
+                    "app.kubernetes.io/name": "jobrun",
+                    "app.kubernetes.io/part-of": "emr-dynamic-sizing"
+                  },
+                  "name": "jobrun-sample"
+                },
+                "spec": null
+              }
+            ]
+          capabilities: Basic Install
+          createdAt: "2023-01-26T19:47:53Z"
+          olm.operatorGroup: operator-sdk-og
+          olm.operatorNamespace: default
+          olm.targetNamespaces: ""
+          olmcahash: b6f984fb570ccf0c32ade5cbcdee91a4540f064f909d8db184453af6b5e87d30
+          operatorframework.io/properties: '{"properties":[{"type":"olm.gvk","value":{"group":"autoscaling.k8s.io","kind":"VerticalPodAutoscaler","version":"v1"}},{"type":"olm.gvk","value":{"group":"autoscaling.k8s.io","kind":"VerticalPodAutoscaler","version":"v1beta2"}},{"type":"olm.gvk","value":{"group":"autoscaling.k8s.io","kind":"VerticalPodAutoscalerCheckpoint","version":"v1"}},{"type":"olm.gvk","value":{"group":"autoscaling.k8s.io","kind":"VerticalPodAutoscalerCheckpoint","version":"v1beta2"}},{"type":"olm.gvk","value":{"group":"dynamicsizing.emr.services.k8s.aws","kind":"JobRun","version":"v1alpha1"}},{"type":"olm.package","value":{"packageName":"emr-dynamic-sizing","version":"0.0.2"}}]}'
+          operators.operatorframework.io/builder: operator-sdk-v1.26.0
+          operators.operatorframework.io/project_layout: go.kubebuilder.io/v4-alpha
+        creationTimestamp: null
+        labels:
+          app: vpa-admission-controller
+      spec:
+        containers:
+        - args:
+          - --client-ca-file=/tmp/vpa-operator/serving-certs/olmCAKey
+          - --tls-cert-file=/tmp/vpa-operator/serving-certs/tls.crt
+          - --tls-private-key=/tmp/vpa-operator/serving-certs/tls.key
+          - --register-webhook=false
+          - --v=4
+          - --stderrthreshold=info
+          command:
+          - ./admission-controller
+          env:
+          - name: NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          - name: OPERATOR_CONDITION_NAME
+            value: emr-dynamic-sizing.v0.0.2
+          image: registry.k8s.io/autoscaling/vpa-admission-controller:0.12.0
+          imagePullPolicy: Always
+          name: admission-controller
+          ports:
+          - containerPort: 8000
+            name: webhook-server
+            protocol: TCP
+          - containerPort: 8944
+            name: prometheus
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 200m
+              memory: 500Mi
+            requests:
+              cpu: 50m
+              memory: 200Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /tmp/vpa-operator/serving-certs
+            name: vpa-operator-cert
+          - mountPath: /apiserver.local.config/certificates
+            name: apiservice-cert
+          - mountPath: /tmp/k8s-webhook-server/serving-certs
+            name: webhook-cert
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 65534
+        serviceAccount: vpa-admission-controller
+        serviceAccountName: vpa-admission-controller
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: vpa-operator-cert
+          secret:
+            defaultMode: 420
+            secretName: vpa-admission-controller-service-cert
+        - name: apiservice-cert
+          secret:
+            defaultMode: 420
+            items:
+            - key: tls.crt
+              path: apiserver.crt
+            - key: tls.key
+              path: apiserver.key
+            secretName: vpa-admission-controller-service-cert
+        - name: webhook-cert
+          secret:
+            defaultMode: 420
+            items:
+            - key: tls.crt
+              path: tls.crt
+            - key: tls.key
+              path: tls.key
+            secretName: vpa-admission-controller-service-cert
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2025-02-15T20:28:02Z"
+      lastUpdateTime: "2025-02-15T20:28:02Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2025-02-15T20:27:57Z"
+      lastUpdateTime: "2025-02-15T20:28:02Z"
+      message: ReplicaSet "vpa-admission-controller-7ffc4556b5" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2025-02-15T20:27:58Z"
+    generation: 1
+    labels:
+      olm.deployment-spec-hash: 2jsLvrLQLWGryKVoKKWYI6u7CpcC9ffLtC3AZV
+      olm.managed: "true"
+      olm.owner: emr-dynamic-sizing.v0.0.2
+      olm.owner.kind: ClusterServiceVersion
+      olm.owner.namespace: default
+      operators.coreos.com/emr-dynamic-sizing.default: ""
+    name: vpa-recommender
+    namespace: default
+    ownerReferences:
+    - apiVersion: operators.coreos.com/v1alpha1
+      blockOwnerDeletion: false
+      controller: false
+      kind: ClusterServiceVersion
+      name: emr-dynamic-sizing.v0.0.2
+      uid: 61062d54-efff-49c0-995d-496d8593d54f
+    resourceVersion: "5851"
+    uid: a8c490f4-8809-4ca8-a5db-51d0326be3cf
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 1
+    selector:
+      matchLabels:
+        app: vpa-recommender
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          alm-examples: |-
+            [
+              {
+                "apiVersion": "dynamicsizing.emr.services.k8s.aws/v1alpha1",
+                "kind": "JobRun",
+                "metadata": {
+                  "labels": {
+                    "app.kubernetes.io/created-by": "emr-dynamic-sizing",
+                    "app.kubernetes.io/instance": "jobrun-sample",
+                    "app.kubernetes.io/managed-by": "kustomize",
+                    "app.kubernetes.io/name": "jobrun",
+                    "app.kubernetes.io/part-of": "emr-dynamic-sizing"
+                  },
+                  "name": "jobrun-sample"
+                },
+                "spec": null
+              }
+            ]
+          capabilities: Basic Install
+          createdAt: "2023-01-26T19:47:53Z"
+          olm.operatorGroup: operator-sdk-og
+          olm.operatorNamespace: default
+          olm.targetNamespaces: ""
+          operatorframework.io/properties: '{"properties":[{"type":"olm.gvk","value":{"group":"autoscaling.k8s.io","kind":"VerticalPodAutoscaler","version":"v1"}},{"type":"olm.gvk","value":{"group":"autoscaling.k8s.io","kind":"VerticalPodAutoscaler","version":"v1beta2"}},{"type":"olm.gvk","value":{"group":"autoscaling.k8s.io","kind":"VerticalPodAutoscalerCheckpoint","version":"v1"}},{"type":"olm.gvk","value":{"group":"autoscaling.k8s.io","kind":"VerticalPodAutoscalerCheckpoint","version":"v1beta2"}},{"type":"olm.gvk","value":{"group":"dynamicsizing.emr.services.k8s.aws","kind":"JobRun","version":"v1alpha1"}},{"type":"olm.package","value":{"packageName":"emr-dynamic-sizing","version":"0.0.2"}}]}'
+          operators.operatorframework.io/builder: operator-sdk-v1.26.0
+          operators.operatorframework.io/project_layout: go.kubebuilder.io/v4-alpha
+        creationTimestamp: null
+        labels:
+          app: vpa-recommender
+      spec:
+        containers:
+        - args:
+          - --recommendation-margin-fraction=0.4
+          env:
+          - name: OPERATOR_CONDITION_NAME
+            value: emr-dynamic-sizing.v0.0.2
+          image: registry.k8s.io/autoscaling/vpa-recommender:0.12.0
+          imagePullPolicy: Always
+          name: recommender
+          ports:
+          - containerPort: 8942
+            name: prometheus
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 200m
+              memory: 1000Mi
+            requests:
+              cpu: 50m
+              memory: 500Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 65534
+        serviceAccount: vpa-recommender
+        serviceAccountName: vpa-recommender
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2025-02-15T20:28:02Z"
+      lastUpdateTime: "2025-02-15T20:28:02Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2025-02-15T20:27:58Z"
+      lastUpdateTime: "2025-02-15T20:28:02Z"
+      message: ReplicaSet "vpa-recommender-6f64fcbb48" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2025-02-15T20:27:58Z"
+    generation: 1
+    labels:
+      olm.deployment-spec-hash: 20OsID0RBZDwXN602CsxGzMYFSyn8i1chDeAHX
+      olm.managed: "true"
+      olm.owner: emr-dynamic-sizing.v0.0.2
+      olm.owner.kind: ClusterServiceVersion
+      olm.owner.namespace: default
+      operators.coreos.com/emr-dynamic-sizing.default: ""
+    name: vpa-updater
+    namespace: default
+    ownerReferences:
+    - apiVersion: operators.coreos.com/v1alpha1
+      blockOwnerDeletion: false
+      controller: false
+      kind: ClusterServiceVersion
+      name: emr-dynamic-sizing.v0.0.2
+      uid: 61062d54-efff-49c0-995d-496d8593d54f
+    resourceVersion: "5804"
+    uid: b5c343b7-4e7a-4128-8537-dd64cbca1ce1
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 1
+    selector:
+      matchLabels:
+        app: vpa-updater
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          alm-examples: |-
+            [
+              {
+                "apiVersion": "dynamicsizing.emr.services.k8s.aws/v1alpha1",
+                "kind": "JobRun",
+                "metadata": {
+                  "labels": {
+                    "app.kubernetes.io/created-by": "emr-dynamic-sizing",
+                    "app.kubernetes.io/instance": "jobrun-sample",
+                    "app.kubernetes.io/managed-by": "kustomize",
+                    "app.kubernetes.io/name": "jobrun",
+                    "app.kubernetes.io/part-of": "emr-dynamic-sizing"
+                  },
+                  "name": "jobrun-sample"
+                },
+                "spec": null
+              }
+            ]
+          capabilities: Basic Install
+          createdAt: "2023-01-26T19:47:53Z"
+          olm.operatorGroup: operator-sdk-og
+          olm.operatorNamespace: default
+          olm.targetNamespaces: ""
+          operatorframework.io/properties: '{"properties":[{"type":"olm.gvk","value":{"group":"autoscaling.k8s.io","kind":"VerticalPodAutoscaler","version":"v1"}},{"type":"olm.gvk","value":{"group":"autoscaling.k8s.io","kind":"VerticalPodAutoscaler","version":"v1beta2"}},{"type":"olm.gvk","value":{"group":"autoscaling.k8s.io","kind":"VerticalPodAutoscalerCheckpoint","version":"v1"}},{"type":"olm.gvk","value":{"group":"autoscaling.k8s.io","kind":"VerticalPodAutoscalerCheckpoint","version":"v1beta2"}},{"type":"olm.gvk","value":{"group":"dynamicsizing.emr.services.k8s.aws","kind":"JobRun","version":"v1alpha1"}},{"type":"olm.package","value":{"packageName":"emr-dynamic-sizing","version":"0.0.2"}}]}'
+          operators.operatorframework.io/builder: operator-sdk-v1.26.0
+          operators.operatorframework.io/project_layout: go.kubebuilder.io/v4-alpha
+        creationTimestamp: null
+        labels:
+          app: vpa-updater
+      spec:
+        containers:
+        - env:
+          - name: NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          - name: OPERATOR_CONDITION_NAME
+            value: emr-dynamic-sizing.v0.0.2
+          image: registry.k8s.io/autoscaling/vpa-updater:0.12.0
+          imagePullPolicy: Always
+          name: updater
+          ports:
+          - containerPort: 8943
+            name: prometheus
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 200m
+              memory: 1000Mi
+            requests:
+              cpu: 50m
+              memory: 500Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 65534
+        serviceAccount: vpa-updater
+        serviceAccountName: vpa-updater
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2025-02-15T20:27:59Z"
+      lastUpdateTime: "2025-02-15T20:27:59Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2025-02-15T20:27:58Z"
+      lastUpdateTime: "2025-02-15T20:27:59Z"
+      message: ReplicaSet "vpa-updater-54b8d56d7f" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+kind: List
+metadata:
+  resourceVersion: ""

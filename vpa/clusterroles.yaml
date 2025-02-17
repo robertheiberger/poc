@@ -1,0 +1,1006 @@
+apiVersion: v1
+items:
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  metadata:
+    creationTimestamp: "2025-02-15T20:28:29Z"
+    labels:
+      olm.managed: "true"
+      olm.opgroup.permissions/aggregate-to-766177821f76806c-admin: "true"
+      rbac.authorization.k8s.io/aggregate-to-admin: "true"
+    name: verticalpodautoscalercheckpoints.autoscaling.k8s.io-v1-admin
+    ownerReferences:
+    - apiVersion: apiextensions.k8s.io/v1
+      blockOwnerDeletion: false
+      controller: false
+      kind: customresourcedefinition
+      name: verticalpodautoscalercheckpoints.autoscaling.k8s.io
+      uid: d7c52354-4653-4312-9e30-4a15da0c3034
+    resourceVersion: "5985"
+    uid: df911502-7417-4f33-b049-4594e2606671
+  rules:
+  - apiGroups:
+    - autoscaling.k8s.io
+    resources:
+    - verticalpodautoscalercheckpoints
+    verbs:
+    - '*'
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  metadata:
+    creationTimestamp: "2025-02-15T20:28:29Z"
+    labels:
+      olm.managed: "true"
+      olm.opgroup.permissions/aggregate-to-766177821f76806c-view: "true"
+      rbac.authorization.k8s.io/aggregate-to-view: "true"
+    name: verticalpodautoscalercheckpoints.autoscaling.k8s.io-v1-crdview
+    ownerReferences:
+    - apiVersion: apiextensions.k8s.io/v1
+      blockOwnerDeletion: false
+      controller: false
+      kind: customresourcedefinition
+      name: verticalpodautoscalercheckpoints.autoscaling.k8s.io
+      uid: d7c52354-4653-4312-9e30-4a15da0c3034
+    resourceVersion: "5997"
+    uid: 0d836b23-2833-4952-81ee-3b4e1e5c7cd7
+  rules:
+  - apiGroups:
+    - apiextensions.k8s.io
+    resourceNames:
+    - verticalpodautoscalercheckpoints.autoscaling.k8s.io
+    resources:
+    - customresourcedefinitions
+    verbs:
+    - get
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  metadata:
+    creationTimestamp: "2025-02-15T20:28:29Z"
+    labels:
+      olm.managed: "true"
+      olm.opgroup.permissions/aggregate-to-766177821f76806c-edit: "true"
+      rbac.authorization.k8s.io/aggregate-to-edit: "true"
+    name: verticalpodautoscalercheckpoints.autoscaling.k8s.io-v1-edit
+    ownerReferences:
+    - apiVersion: apiextensions.k8s.io/v1
+      blockOwnerDeletion: false
+      controller: false
+      kind: customresourcedefinition
+      name: verticalpodautoscalercheckpoints.autoscaling.k8s.io
+      uid: d7c52354-4653-4312-9e30-4a15da0c3034
+    resourceVersion: "5988"
+    uid: ffc5f98e-c534-4550-8cd4-e33c72ba9f60
+  rules:
+  - apiGroups:
+    - autoscaling.k8s.io
+    resources:
+    - verticalpodautoscalercheckpoints
+    verbs:
+    - create
+    - update
+    - patch
+    - delete
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  metadata:
+    creationTimestamp: "2025-02-15T20:28:29Z"
+    labels:
+      olm.managed: "true"
+      olm.opgroup.permissions/aggregate-to-766177821f76806c-view: "true"
+      rbac.authorization.k8s.io/aggregate-to-view: "true"
+    name: verticalpodautoscalercheckpoints.autoscaling.k8s.io-v1-view
+    ownerReferences:
+    - apiVersion: apiextensions.k8s.io/v1
+      blockOwnerDeletion: false
+      controller: false
+      kind: customresourcedefinition
+      name: verticalpodautoscalercheckpoints.autoscaling.k8s.io
+      uid: d7c52354-4653-4312-9e30-4a15da0c3034
+    resourceVersion: "5993"
+    uid: aa71ec16-4aec-4d56-bb7c-daae8b4e1b4d
+  rules:
+  - apiGroups:
+    - autoscaling.k8s.io
+    resources:
+    - verticalpodautoscalercheckpoints
+    verbs:
+    - get
+    - list
+    - watch
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  metadata:
+    creationTimestamp: "2025-02-15T20:28:29Z"
+    labels:
+      olm.managed: "true"
+      olm.opgroup.permissions/aggregate-to-ae42ba7a0a5f5100-admin: "true"
+      rbac.authorization.k8s.io/aggregate-to-admin: "true"
+    name: verticalpodautoscalercheckpoints.autoscaling.k8s.io-v1beta2-admin
+    ownerReferences:
+    - apiVersion: apiextensions.k8s.io/v1
+      blockOwnerDeletion: false
+      controller: false
+      kind: customresourcedefinition
+      name: verticalpodautoscalercheckpoints.autoscaling.k8s.io
+      uid: d7c52354-4653-4312-9e30-4a15da0c3034
+    resourceVersion: "6001"
+    uid: 2a3dfd05-98b4-4e18-8452-4b049cf29d30
+  rules:
+  - apiGroups:
+    - autoscaling.k8s.io
+    resources:
+    - verticalpodautoscalercheckpoints
+    verbs:
+    - '*'
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  metadata:
+    creationTimestamp: "2025-02-15T20:28:29Z"
+    labels:
+      olm.managed: "true"
+      olm.opgroup.permissions/aggregate-to-ae42ba7a0a5f5100-view: "true"
+      rbac.authorization.k8s.io/aggregate-to-view: "true"
+    name: verticalpodautoscalercheckpoints.autoscaling.k8s.io-v1beta2-crdview
+    ownerReferences:
+    - apiVersion: apiextensions.k8s.io/v1
+      blockOwnerDeletion: false
+      controller: false
+      kind: customresourcedefinition
+      name: verticalpodautoscalercheckpoints.autoscaling.k8s.io
+      uid: d7c52354-4653-4312-9e30-4a15da0c3034
+    resourceVersion: "6009"
+    uid: f14c24b5-986c-42cb-9660-a2006be711ef
+  rules:
+  - apiGroups:
+    - apiextensions.k8s.io
+    resourceNames:
+    - verticalpodautoscalercheckpoints.autoscaling.k8s.io
+    resources:
+    - customresourcedefinitions
+    verbs:
+    - get
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  metadata:
+    creationTimestamp: "2025-02-15T20:28:29Z"
+    labels:
+      olm.managed: "true"
+      olm.opgroup.permissions/aggregate-to-ae42ba7a0a5f5100-edit: "true"
+      rbac.authorization.k8s.io/aggregate-to-edit: "true"
+    name: verticalpodautoscalercheckpoints.autoscaling.k8s.io-v1beta2-edit
+    ownerReferences:
+    - apiVersion: apiextensions.k8s.io/v1
+      blockOwnerDeletion: false
+      controller: false
+      kind: customresourcedefinition
+      name: verticalpodautoscalercheckpoints.autoscaling.k8s.io
+      uid: d7c52354-4653-4312-9e30-4a15da0c3034
+    resourceVersion: "6006"
+    uid: d6903122-8edc-410d-b2b0-5cb98c6cc587
+  rules:
+  - apiGroups:
+    - autoscaling.k8s.io
+    resources:
+    - verticalpodautoscalercheckpoints
+    verbs:
+    - create
+    - update
+    - patch
+    - delete
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  metadata:
+    creationTimestamp: "2025-02-15T20:28:29Z"
+    labels:
+      olm.managed: "true"
+      olm.opgroup.permissions/aggregate-to-ae42ba7a0a5f5100-view: "true"
+      rbac.authorization.k8s.io/aggregate-to-view: "true"
+    name: verticalpodautoscalercheckpoints.autoscaling.k8s.io-v1beta2-view
+    ownerReferences:
+    - apiVersion: apiextensions.k8s.io/v1
+      blockOwnerDeletion: false
+      controller: false
+      kind: customresourcedefinition
+      name: verticalpodautoscalercheckpoints.autoscaling.k8s.io
+      uid: d7c52354-4653-4312-9e30-4a15da0c3034
+    resourceVersion: "6007"
+    uid: 092d121b-e174-451b-99ef-65b14bdc8a2a
+  rules:
+  - apiGroups:
+    - autoscaling.k8s.io
+    resources:
+    - verticalpodautoscalercheckpoints
+    verbs:
+    - get
+    - list
+    - watch
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  metadata:
+    creationTimestamp: "2025-02-15T20:28:30Z"
+    labels:
+      olm.managed: "true"
+      olm.opgroup.permissions/aggregate-to-aab1cb18de5b8a36-admin: "true"
+      rbac.authorization.k8s.io/aggregate-to-admin: "true"
+    name: verticalpodautoscalers.autoscaling.k8s.io-v1-admin
+    ownerReferences:
+    - apiVersion: apiextensions.k8s.io/v1
+      blockOwnerDeletion: false
+      controller: false
+      kind: customresourcedefinition
+      name: verticalpodautoscalers.autoscaling.k8s.io
+      uid: cb218be2-d465-457d-9a07-1557d10e3060
+    resourceVersion: "6010"
+    uid: fd79035e-d8da-417d-8826-d32b65c2cfe9
+  rules:
+  - apiGroups:
+    - autoscaling.k8s.io
+    resources:
+    - verticalpodautoscalers
+    verbs:
+    - '*'
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  metadata:
+    creationTimestamp: "2025-02-15T20:28:30Z"
+    labels:
+      olm.managed: "true"
+      olm.opgroup.permissions/aggregate-to-aab1cb18de5b8a36-view: "true"
+      rbac.authorization.k8s.io/aggregate-to-view: "true"
+    name: verticalpodautoscalers.autoscaling.k8s.io-v1-crdview
+    ownerReferences:
+    - apiVersion: apiextensions.k8s.io/v1
+      blockOwnerDeletion: false
+      controller: false
+      kind: customresourcedefinition
+      name: verticalpodautoscalers.autoscaling.k8s.io
+      uid: cb218be2-d465-457d-9a07-1557d10e3060
+    resourceVersion: "6022"
+    uid: a3ebbd6e-0414-41b9-a9cf-93204112a9b2
+  rules:
+  - apiGroups:
+    - apiextensions.k8s.io
+    resourceNames:
+    - verticalpodautoscalers.autoscaling.k8s.io
+    resources:
+    - customresourcedefinitions
+    verbs:
+    - get
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  metadata:
+    creationTimestamp: "2025-02-15T20:28:30Z"
+    labels:
+      olm.managed: "true"
+      olm.opgroup.permissions/aggregate-to-aab1cb18de5b8a36-edit: "true"
+      rbac.authorization.k8s.io/aggregate-to-edit: "true"
+    name: verticalpodautoscalers.autoscaling.k8s.io-v1-edit
+    ownerReferences:
+    - apiVersion: apiextensions.k8s.io/v1
+      blockOwnerDeletion: false
+      controller: false
+      kind: customresourcedefinition
+      name: verticalpodautoscalers.autoscaling.k8s.io
+      uid: cb218be2-d465-457d-9a07-1557d10e3060
+    resourceVersion: "6013"
+    uid: 76048d3f-16f9-4d70-b334-762b9b11a8c1
+  rules:
+  - apiGroups:
+    - autoscaling.k8s.io
+    resources:
+    - verticalpodautoscalers
+    verbs:
+    - create
+    - update
+    - patch
+    - delete
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  metadata:
+    creationTimestamp: "2025-02-15T20:28:30Z"
+    labels:
+      olm.managed: "true"
+      olm.opgroup.permissions/aggregate-to-aab1cb18de5b8a36-view: "true"
+      rbac.authorization.k8s.io/aggregate-to-view: "true"
+    name: verticalpodautoscalers.autoscaling.k8s.io-v1-view
+    ownerReferences:
+    - apiVersion: apiextensions.k8s.io/v1
+      blockOwnerDeletion: false
+      controller: false
+      kind: customresourcedefinition
+      name: verticalpodautoscalers.autoscaling.k8s.io
+      uid: cb218be2-d465-457d-9a07-1557d10e3060
+    resourceVersion: "6017"
+    uid: 23f732e0-2e83-404a-a4da-f7e1ff73733d
+  rules:
+  - apiGroups:
+    - autoscaling.k8s.io
+    resources:
+    - verticalpodautoscalers
+    verbs:
+    - get
+    - list
+    - watch
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  metadata:
+    creationTimestamp: "2025-02-15T20:28:30Z"
+    labels:
+      olm.managed: "true"
+      olm.opgroup.permissions/aggregate-to-6d36f13886b57ff6-admin: "true"
+      rbac.authorization.k8s.io/aggregate-to-admin: "true"
+    name: verticalpodautoscalers.autoscaling.k8s.io-v1beta2-admin
+    ownerReferences:
+    - apiVersion: apiextensions.k8s.io/v1
+      blockOwnerDeletion: false
+      controller: false
+      kind: customresourcedefinition
+      name: verticalpodautoscalers.autoscaling.k8s.io
+      uid: cb218be2-d465-457d-9a07-1557d10e3060
+    resourceVersion: "6028"
+    uid: 5c54494e-3513-489c-8f52-819776335f41
+  rules:
+  - apiGroups:
+    - autoscaling.k8s.io
+    resources:
+    - verticalpodautoscalers
+    verbs:
+    - '*'
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  metadata:
+    creationTimestamp: "2025-02-15T20:28:30Z"
+    labels:
+      olm.managed: "true"
+      olm.opgroup.permissions/aggregate-to-6d36f13886b57ff6-view: "true"
+      rbac.authorization.k8s.io/aggregate-to-view: "true"
+    name: verticalpodautoscalers.autoscaling.k8s.io-v1beta2-crdview
+    ownerReferences:
+    - apiVersion: apiextensions.k8s.io/v1
+      blockOwnerDeletion: false
+      controller: false
+      kind: customresourcedefinition
+      name: verticalpodautoscalers.autoscaling.k8s.io
+      uid: cb218be2-d465-457d-9a07-1557d10e3060
+    resourceVersion: "6031"
+    uid: a64b517e-47b1-41ae-b344-9064c7b6d0fe
+  rules:
+  - apiGroups:
+    - apiextensions.k8s.io
+    resourceNames:
+    - verticalpodautoscalers.autoscaling.k8s.io
+    resources:
+    - customresourcedefinitions
+    verbs:
+    - get
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  metadata:
+    creationTimestamp: "2025-02-15T20:28:30Z"
+    labels:
+      olm.managed: "true"
+      olm.opgroup.permissions/aggregate-to-6d36f13886b57ff6-edit: "true"
+      rbac.authorization.k8s.io/aggregate-to-edit: "true"
+    name: verticalpodautoscalers.autoscaling.k8s.io-v1beta2-edit
+    ownerReferences:
+    - apiVersion: apiextensions.k8s.io/v1
+      blockOwnerDeletion: false
+      controller: false
+      kind: customresourcedefinition
+      name: verticalpodautoscalers.autoscaling.k8s.io
+      uid: cb218be2-d465-457d-9a07-1557d10e3060
+    resourceVersion: "6029"
+    uid: fc4c7cac-15df-4f0f-b842-fd3158aa7987
+  rules:
+  - apiGroups:
+    - autoscaling.k8s.io
+    resources:
+    - verticalpodautoscalers
+    verbs:
+    - create
+    - update
+    - patch
+    - delete
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  metadata:
+    creationTimestamp: "2025-02-15T20:28:30Z"
+    labels:
+      olm.managed: "true"
+      olm.opgroup.permissions/aggregate-to-6d36f13886b57ff6-view: "true"
+      rbac.authorization.k8s.io/aggregate-to-view: "true"
+    name: verticalpodautoscalers.autoscaling.k8s.io-v1beta2-view
+    ownerReferences:
+    - apiVersion: apiextensions.k8s.io/v1
+      blockOwnerDeletion: false
+      controller: false
+      kind: customresourcedefinition
+      name: verticalpodautoscalers.autoscaling.k8s.io
+      uid: cb218be2-d465-457d-9a07-1557d10e3060
+    resourceVersion: "6027"
+    uid: 0bf5da22-a408-42f4-a4fa-bfaadfe1e07c
+  rules:
+  - apiGroups:
+    - autoscaling.k8s.io
+    resources:
+    - verticalpodautoscalers
+    verbs:
+    - get
+    - list
+    - watch
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  metadata:
+    creationTimestamp: "2025-02-15T20:27:55Z"
+    labels:
+      olm.managed: "true"
+      olm.owner: emr-dynamic-sizing.v0.0.2
+      olm.owner.kind: ClusterServiceVersion
+      olm.owner.namespace: default
+      olm.permissions.hash: jFynzryran0Td5CUgJ3rwrkK6ZdYd35f5iILp
+      operators.coreos.com/emr-dynamic-sizing.default: ""
+    name: emr-dynamic-sizing.v0.0.-csfK2TGpERxsZyrBxbqueXH5u52W1NVjrMJFPZ
+    resourceVersion: "5613"
+    uid: a968523e-155e-4ad6-8078-9f5957f7efa7
+  rules:
+  - apiGroups:
+    - ""
+    resources:
+    - configmaps
+    verbs:
+    - get
+    - list
+    - watch
+    - create
+    - update
+    - patch
+    - delete
+  - apiGroups:
+    - coordination.k8s.io
+    resources:
+    - leases
+    verbs:
+    - get
+    - list
+    - watch
+    - create
+    - update
+    - patch
+    - delete
+  - apiGroups:
+    - ""
+    resources:
+    - events
+    verbs:
+    - create
+    - patch
+  - apiGroups:
+    - ""
+    resources:
+    - namespaces
+    verbs:
+    - get
+    - list
+    - watch
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  metadata:
+    creationTimestamp: "2025-02-15T20:27:56Z"
+    labels:
+      olm.managed: "true"
+      olm.owner: emr-dynamic-sizing.v0.0.2
+      olm.owner.kind: ClusterServiceVersion
+      olm.owner.namespace: default
+      olm.permissions.hash: 1vIget7xveeORoPDmPZVwZDDvzLVXtrtO8lItn
+      operators.coreos.com/emr-dynamic-sizing.default: ""
+    name: emr-dynamic-sizing.v0.0.2-1VWVzSHkwgJhG53qnGdloTgueImuTB4vyi7u0b
+    resourceVersion: "5826"
+    uid: e4f5238d-9c0b-4b45-949d-a559e232a9e8
+  rules:
+  - apiGroups:
+    - metrics.k8s.io
+    resources:
+    - pods
+    verbs:
+    - get
+    - list
+  - apiGroups:
+    - ""
+    resources:
+    - pods
+    - nodes
+    - limitranges
+    verbs:
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - ""
+    resources:
+    - events
+    verbs:
+    - get
+    - list
+    - watch
+    - create
+  - apiGroups:
+    - poc.autoscaling.k8s.io
+    resources:
+    - verticalpodautoscalers
+    verbs:
+    - get
+    - list
+    - watch
+    - patch
+  - apiGroups:
+    - autoscaling.k8s.io
+    resources:
+    - verticalpodautoscalers
+    verbs:
+    - get
+    - list
+    - watch
+    - patch
+  - apiGroups:
+    - poc.autoscaling.k8s.io
+    resources:
+    - verticalpodautoscalercheckpoints
+    verbs:
+    - get
+    - list
+    - watch
+    - create
+    - patch
+    - delete
+  - apiGroups:
+    - autoscaling.k8s.io
+    resources:
+    - verticalpodautoscalercheckpoints
+    verbs:
+    - get
+    - list
+    - watch
+    - create
+    - patch
+    - delete
+  - apiGroups:
+    - ""
+    resources:
+    - namespaces
+    verbs:
+    - get
+    - list
+  - apiGroups:
+    - '*'
+    resources:
+    - '*/scale'
+    verbs:
+    - get
+    - watch
+  - apiGroups:
+    - ""
+    resources:
+    - replicationcontrollers
+    verbs:
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - apps
+    resources:
+    - daemonsets
+    - deployments
+    - replicasets
+    - statefulsets
+    verbs:
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - batch
+    resources:
+    - jobs
+    - cronjobs
+    verbs:
+    - get
+    - list
+    - watch
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  metadata:
+    creationTimestamp: "2025-02-15T20:27:56Z"
+    labels:
+      olm.managed: "true"
+      olm.owner: emr-dynamic-sizing.v0.0.2
+      olm.owner.kind: ClusterServiceVersion
+      olm.owner.namespace: default
+      olm.permissions.hash: 14e4uAwkqUhF1nyenHTRtbtNiCPrLBXD4preGV
+      operators.coreos.com/emr-dynamic-sizing.default: ""
+    name: emr-dynamic-sizing.v0.0.2-4guGjJZfkBQ5HNx10Rtmoc8kW6rRZOv9a8zj7W
+    resourceVersion: "5812"
+    uid: 81379f89-f736-4b2a-955d-df3951ad8d43
+  rules:
+  - apiGroups:
+    - ""
+    resources:
+    - pods
+    - configmaps
+    - nodes
+    - limitranges
+    verbs:
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - admissionregistration.k8s.io
+    resources:
+    - mutatingwebhookconfigurations
+    verbs:
+    - create
+    - delete
+    - get
+    - list
+  - apiGroups:
+    - poc.autoscaling.k8s.io
+    resources:
+    - verticalpodautoscalers
+    verbs:
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - autoscaling.k8s.io
+    resources:
+    - verticalpodautoscalers
+    verbs:
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - coordination.k8s.io
+    resources:
+    - leases
+    verbs:
+    - create
+    - update
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - '*'
+    resources:
+    - '*/scale'
+    verbs:
+    - get
+    - watch
+  - apiGroups:
+    - ""
+    resources:
+    - replicationcontrollers
+    verbs:
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - apps
+    resources:
+    - daemonsets
+    - deployments
+    - replicasets
+    - statefulsets
+    verbs:
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - batch
+    resources:
+    - jobs
+    - cronjobs
+    verbs:
+    - get
+    - list
+    - watch
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  metadata:
+    creationTimestamp: "2025-02-15T20:27:57Z"
+    labels:
+      olm.managed: "true"
+      olm.owner: emr-dynamic-sizing.v0.0.2
+      olm.owner.kind: ClusterServiceVersion
+      olm.owner.namespace: default
+      olm.permissions.hash: 2duks4zlWORXw7uocJLsF4A9J7iRZqZCKFg2u3
+      operators.coreos.com/emr-dynamic-sizing.default: ""
+    name: emr-dynamic-sizing.v0.0.2-4mBSAZBsHgE7pol19d4L2aWF5oUNby73aaQKzZ
+    resourceVersion: "5845"
+    uid: e0512a16-07f9-4986-a787-19878e94d16b
+  rules:
+  - apiGroups:
+    - ""
+    resources:
+    - pods
+    - nodes
+    - limitranges
+    verbs:
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - ""
+    resources:
+    - events
+    verbs:
+    - get
+    - list
+    - watch
+    - create
+  - apiGroups:
+    - poc.autoscaling.k8s.io
+    resources:
+    - verticalpodautoscalers
+    verbs:
+    - get
+    - list
+    - watch
+    - patch
+  - apiGroups:
+    - autoscaling.k8s.io
+    resources:
+    - verticalpodautoscalers
+    verbs:
+    - get
+    - list
+    - watch
+    - patch
+  - apiGroups:
+    - apps
+    - extensions
+    resources:
+    - replicasets
+    verbs:
+    - get
+  - apiGroups:
+    - ""
+    resources:
+    - pods/eviction
+    verbs:
+    - create
+  - apiGroups:
+    - coordination.k8s.io
+    resources:
+    - leases
+    verbs:
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - '*'
+    resources:
+    - '*/scale'
+    verbs:
+    - get
+    - watch
+  - apiGroups:
+    - ""
+    resources:
+    - replicationcontrollers
+    verbs:
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - apps
+    resources:
+    - daemonsets
+    - deployments
+    - replicasets
+    - statefulsets
+    verbs:
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - batch
+    resources:
+    - jobs
+    - cronjobs
+    verbs:
+    - get
+    - list
+    - watch
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  metadata:
+    creationTimestamp: "2025-02-15T20:27:56Z"
+    labels:
+      olm.managed: "true"
+      olm.owner: emr-dynamic-sizing.v0.0.2
+      olm.owner.kind: ClusterServiceVersion
+      olm.owner.namespace: default
+      olm.permissions.hash: acwKosSZlghtggoVTuOiYzJ6shlq1MjF2Sn2yf
+      operators.coreos.com/emr-dynamic-sizing.default: ""
+    name: emr-dynamic-sizing.v0.0.2-cKnKiHYnkT37PeTEMwX6si4ZuA5r8aK6GOneBq
+    resourceVersion: "5793"
+    uid: 88c1a7d0-1125-469e-8057-b3e82a05dea5
+  rules:
+  - apiGroups:
+    - autoscaling.k8s.io
+    resources:
+    - verticalpodautoscalers
+    verbs:
+    - create
+    - delete
+    - get
+    - list
+    - patch
+    - update
+    - watch
+  - apiGroups:
+    - autoscaling.k8s.io
+    resources:
+    - verticalpodautoscalers/finalizers
+    verbs:
+    - update
+  - apiGroups:
+    - autoscaling.k8s.io
+    resources:
+    - verticalpodautoscalers/status
+    verbs:
+    - get
+  - apiGroups:
+    - ""
+    resources:
+    - pods
+    verbs:
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - dynamicsizing.emr.services.k8s.aws
+    resources:
+    - jobruns
+    verbs:
+    - create
+    - delete
+    - get
+    - list
+    - patch
+    - update
+    - watch
+  - apiGroups:
+    - dynamicsizing.emr.services.k8s.aws
+    resources:
+    - jobruns/finalizers
+    verbs:
+    - update
+  - apiGroups:
+    - dynamicsizing.emr.services.k8s.aws
+    resources:
+    - jobruns/status
+    verbs:
+    - get
+    - patch
+    - update
+  - apiGroups:
+    - authentication.k8s.io
+    resources:
+    - tokenreviews
+    verbs:
+    - create
+  - apiGroups:
+    - authorization.k8s.io
+    resources:
+    - subjectaccessreviews
+    verbs:
+    - create
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  metadata:
+    creationTimestamp: "2025-02-15T20:28:29Z"
+    labels:
+      olm.managed: "true"
+      olm.opgroup.permissions/aggregate-to-8d63dbd5a61085db-admin: "true"
+      rbac.authorization.k8s.io/aggregate-to-admin: "true"
+    name: jobruns.dynamicsizing.emr.services.k8s.aws-v1alpha1-admin
+    ownerReferences:
+    - apiVersion: apiextensions.k8s.io/v1
+      blockOwnerDeletion: false
+      controller: false
+      kind: customresourcedefinition
+      name: jobruns.dynamicsizing.emr.services.k8s.aws
+      uid: 1d2a4ae9-7ef2-4733-a35f-4f9e0d254102
+    resourceVersion: "5976"
+    uid: a6f11ef6-90e5-4c96-8f93-e591461344c2
+  rules:
+  - apiGroups:
+    - dynamicsizing.emr.services.k8s.aws
+    resources:
+    - jobruns
+    verbs:
+    - '*'
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  metadata:
+    creationTimestamp: "2025-02-15T20:28:29Z"
+    labels:
+      olm.managed: "true"
+      olm.opgroup.permissions/aggregate-to-8d63dbd5a61085db-view: "true"
+      rbac.authorization.k8s.io/aggregate-to-view: "true"
+    name: jobruns.dynamicsizing.emr.services.k8s.aws-v1alpha1-crdview
+    ownerReferences:
+    - apiVersion: apiextensions.k8s.io/v1
+      blockOwnerDeletion: false
+      controller: false
+      kind: customresourcedefinition
+      name: jobruns.dynamicsizing.emr.services.k8s.aws
+      uid: 1d2a4ae9-7ef2-4733-a35f-4f9e0d254102
+    resourceVersion: "5979"
+    uid: f2a5419f-0818-4333-be8a-7e83f2f05524
+  rules:
+  - apiGroups:
+    - apiextensions.k8s.io
+    resourceNames:
+    - jobruns.dynamicsizing.emr.services.k8s.aws
+    resources:
+    - customresourcedefinitions
+    verbs:
+    - get
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  metadata:
+    creationTimestamp: "2025-02-15T20:28:29Z"
+    labels:
+      olm.managed: "true"
+      olm.opgroup.permissions/aggregate-to-8d63dbd5a61085db-edit: "true"
+      rbac.authorization.k8s.io/aggregate-to-edit: "true"
+    name: jobruns.dynamicsizing.emr.services.k8s.aws-v1alpha1-edit
+    ownerReferences:
+    - apiVersion: apiextensions.k8s.io/v1
+      blockOwnerDeletion: false
+      controller: false
+      kind: customresourcedefinition
+      name: jobruns.dynamicsizing.emr.services.k8s.aws
+      uid: 1d2a4ae9-7ef2-4733-a35f-4f9e0d254102
+    resourceVersion: "5967"
+    uid: 8170495f-c0d6-4fd9-9e85-72848c77aabb
+  rules:
+  - apiGroups:
+    - dynamicsizing.emr.services.k8s.aws
+    resources:
+    - jobruns
+    verbs:
+    - create
+    - update
+    - patch
+    - delete
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  metadata:
+    creationTimestamp: "2025-02-15T20:28:29Z"
+    labels:
+      olm.managed: "true"
+      olm.opgroup.permissions/aggregate-to-8d63dbd5a61085db-view: "true"
+      rbac.authorization.k8s.io/aggregate-to-view: "true"
+    name: jobruns.dynamicsizing.emr.services.k8s.aws-v1alpha1-view
+    ownerReferences:
+    - apiVersion: apiextensions.k8s.io/v1
+      blockOwnerDeletion: false
+      controller: false
+      kind: customresourcedefinition
+      name: jobruns.dynamicsizing.emr.services.k8s.aws
+      uid: 1d2a4ae9-7ef2-4733-a35f-4f9e0d254102
+    resourceVersion: "5971"
+    uid: a83f152f-3b0b-4e1a-8182-40e70d52aac0
+  rules:
+  - apiGroups:
+    - dynamicsizing.emr.services.k8s.aws
+    resources:
+    - jobruns
+    verbs:
+    - get
+    - list
+    - watch
+kind: List
+metadata:
+  resourceVersion: ""

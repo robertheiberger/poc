@@ -1,0 +1,123 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.10.0
+    operatorframework.io/installed-alongside-55a2b8a91c5de1a8: default/emr-dynamic-sizing.v0.0.2
+  creationTimestamp: "2025-02-15T20:27:55Z"
+  generation: 1
+  labels:
+    olm.managed: "true"
+    operators.coreos.com/emr-dynamic-sizing.default: ""
+  name: jobruns.dynamicsizing.emr.services.k8s.aws
+  resourceVersion: "5766"
+  uid: 1d2a4ae9-7ef2-4733-a35f-4f9e0d254102
+spec:
+  conversion:
+    strategy: None
+  group: dynamicsizing.emr.services.k8s.aws
+  names:
+    kind: JobRun
+    listKind: JobRunList
+    plural: jobruns
+    singular: jobrun
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: JobRun is the Schema for the jobruns API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: JobRunSpec defines the desired state of JobRun
+            properties:
+              containerSelector:
+                type: string
+              cpuResourceControlled:
+                type: boolean
+              labelSelector:
+                type: string
+              maxCPU:
+                anyOf:
+                - type: integer
+                - type: string
+                pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                x-kubernetes-int-or-string: true
+              maxMemory:
+                anyOf:
+                - type: integer
+                - type: string
+                pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                x-kubernetes-int-or-string: true
+              memoryResourceControlled:
+                type: boolean
+              minCPU:
+                anyOf:
+                - type: integer
+                - type: string
+                pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                x-kubernetes-int-or-string: true
+              minMemory:
+                anyOf:
+                - type: integer
+                - type: string
+                pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                x-kubernetes-int-or-string: true
+              replicas:
+                type: integer
+              updateMode:
+                description: UpdateMode controls when autoscaler applies changes to
+                  the pod resoures.
+                enum:
+                - "Off"
+                - Initial
+                - Recreate
+                - Auto
+                type: string
+            type: object
+          status:
+            description: JobRunStatus defines the observed state of JobRun
+            properties:
+              replicas:
+                type: integer
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      scale:
+        labelSelectorPath: .spec.labelSelector
+        specReplicasPath: .spec.replicas
+        statusReplicasPath: .status.replicas
+      status: {}
+status:
+  acceptedNames:
+    kind: JobRun
+    listKind: JobRunList
+    plural: jobruns
+    singular: jobrun
+  conditions:
+  - lastTransitionTime: "2025-02-15T20:27:55Z"
+    message: no conflicts found
+    reason: NoConflicts
+    status: "True"
+    type: NamesAccepted
+  - lastTransitionTime: "2025-02-15T20:27:55Z"
+    message: the initial names have been accepted
+    reason: InitialNamesAccepted
+    status: "True"
+    type: Established
+  storedVersions:
+  - v1alpha1
