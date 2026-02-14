@@ -1,0 +1,1010 @@
+apiVersion: v1
+items:
+- apiVersion: operators.coreos.com/v1alpha1
+  kind: ClusterServiceVersion
+  metadata:
+    annotations:
+      alm-examples: |-
+        [
+          {
+            "apiVersion": "dynamicsizing.emr.services.k8s.aws/v1alpha1",
+            "kind": "JobRun",
+            "metadata": {
+              "labels": {
+                "app.kubernetes.io/created-by": "emr-dynamic-sizing",
+                "app.kubernetes.io/instance": "jobrun-sample",
+                "app.kubernetes.io/managed-by": "kustomize",
+                "app.kubernetes.io/name": "jobrun",
+                "app.kubernetes.io/part-of": "emr-dynamic-sizing"
+              },
+              "name": "jobrun-sample"
+            },
+            "spec": null
+          }
+        ]
+      capabilities: Basic Install
+      createdAt: "2023-01-26T19:47:53Z"
+      olm.operatorGroup: operator-sdk-og
+      olm.operatorNamespace: default
+      olm.targetNamespaces: ""
+      operatorframework.io/properties: '{"properties":[{"type":"olm.gvk","value":{"group":"autoscaling.k8s.io","kind":"VerticalPodAutoscaler","version":"v1"}},{"type":"olm.gvk","value":{"group":"autoscaling.k8s.io","kind":"VerticalPodAutoscaler","version":"v1beta2"}},{"type":"olm.gvk","value":{"group":"autoscaling.k8s.io","kind":"VerticalPodAutoscalerCheckpoint","version":"v1"}},{"type":"olm.gvk","value":{"group":"autoscaling.k8s.io","kind":"VerticalPodAutoscalerCheckpoint","version":"v1beta2"}},{"type":"olm.gvk","value":{"group":"dynamicsizing.emr.services.k8s.aws","kind":"JobRun","version":"v1alpha1"}},{"type":"olm.package","value":{"packageName":"emr-dynamic-sizing","version":"0.0.2"}}]}'
+      operators.operatorframework.io/builder: operator-sdk-v1.26.0
+      operators.operatorframework.io/project_layout: go.kubebuilder.io/v4-alpha
+    creationTimestamp: "2025-02-15T20:27:55Z"
+    finalizers:
+    - operators.coreos.com/csv-cleanup
+    generation: 1
+    labels:
+      olm.managed: "true"
+      operators.coreos.com/emr-dynamic-sizing.default: ""
+    name: emr-dynamic-sizing.v0.0.2
+    namespace: default
+    resourceVersion: "5955"
+    uid: 61062d54-efff-49c0-995d-496d8593d54f
+  spec:
+    apiservicedefinitions: {}
+    cleanup:
+      enabled: false
+    customresourcedefinitions:
+      owned:
+      - description: JobRun is the Schema for the jobruns API
+        displayName: Job Run
+        kind: JobRun
+        name: jobruns.dynamicsizing.emr.services.k8s.aws
+        version: v1alpha1
+      - kind: VerticalPodAutoscalerCheckpoint
+        name: verticalpodautoscalercheckpoints.autoscaling.k8s.io
+        version: v1
+      - kind: VerticalPodAutoscalerCheckpoint
+        name: verticalpodautoscalercheckpoints.autoscaling.k8s.io
+        version: v1beta2
+      - kind: VerticalPodAutoscaler
+        name: verticalpodautoscalers.autoscaling.k8s.io
+        version: v1
+      - kind: VerticalPodAutoscaler
+        name: verticalpodautoscalers.autoscaling.k8s.io
+        version: v1beta2
+    description: EMR Dynamic Sizing is a Kubernetes Operator that enables vertical
+      autocaling for EMR on EKS jobs.
+    displayName: emr-dynamic-sizing
+    icon:
+    - base64data: ""
+      mediatype: ""
+    install:
+      spec:
+        clusterPermissions:
+        - rules:
+          - apiGroups:
+            - autoscaling.k8s.io
+            resources:
+            - verticalpodautoscalers
+            verbs:
+            - create
+            - delete
+            - get
+            - list
+            - patch
+            - update
+            - watch
+          - apiGroups:
+            - autoscaling.k8s.io
+            resources:
+            - verticalpodautoscalers/finalizers
+            verbs:
+            - update
+          - apiGroups:
+            - autoscaling.k8s.io
+            resources:
+            - verticalpodautoscalers/status
+            verbs:
+            - get
+          - apiGroups:
+            - ""
+            resources:
+            - pods
+            verbs:
+            - get
+            - list
+            - watch
+          - apiGroups:
+            - dynamicsizing.emr.services.k8s.aws
+            resources:
+            - jobruns
+            verbs:
+            - create
+            - delete
+            - get
+            - list
+            - patch
+            - update
+            - watch
+          - apiGroups:
+            - dynamicsizing.emr.services.k8s.aws
+            resources:
+            - jobruns/finalizers
+            verbs:
+            - update
+          - apiGroups:
+            - dynamicsizing.emr.services.k8s.aws
+            resources:
+            - jobruns/status
+            verbs:
+            - get
+            - patch
+            - update
+          - apiGroups:
+            - authentication.k8s.io
+            resources:
+            - tokenreviews
+            verbs:
+            - create
+          - apiGroups:
+            - authorization.k8s.io
+            resources:
+            - subjectaccessreviews
+            verbs:
+            - create
+          serviceAccountName: emr-dynamic-sizing-controller-manager
+        - rules:
+          - apiGroups:
+            - ""
+            resources:
+            - pods
+            - configmaps
+            - nodes
+            - limitranges
+            verbs:
+            - get
+            - list
+            - watch
+          - apiGroups:
+            - admissionregistration.k8s.io
+            resources:
+            - mutatingwebhookconfigurations
+            verbs:
+            - create
+            - delete
+            - get
+            - list
+          - apiGroups:
+            - poc.autoscaling.k8s.io
+            resources:
+            - verticalpodautoscalers
+            verbs:
+            - get
+            - list
+            - watch
+          - apiGroups:
+            - autoscaling.k8s.io
+            resources:
+            - verticalpodautoscalers
+            verbs:
+            - get
+            - list
+            - watch
+          - apiGroups:
+            - coordination.k8s.io
+            resources:
+            - leases
+            verbs:
+            - create
+            - update
+            - get
+            - list
+            - watch
+          - apiGroups:
+            - '*'
+            resources:
+            - '*/scale'
+            verbs:
+            - get
+            - watch
+          - apiGroups:
+            - ""
+            resources:
+            - replicationcontrollers
+            verbs:
+            - get
+            - list
+            - watch
+          - apiGroups:
+            - apps
+            resources:
+            - daemonsets
+            - deployments
+            - replicasets
+            - statefulsets
+            verbs:
+            - get
+            - list
+            - watch
+          - apiGroups:
+            - batch
+            resources:
+            - jobs
+            - cronjobs
+            verbs:
+            - get
+            - list
+            - watch
+          serviceAccountName: vpa-admission-controller
+        - rules:
+          - apiGroups:
+            - metrics.k8s.io
+            resources:
+            - pods
+            verbs:
+            - get
+            - list
+          - apiGroups:
+            - ""
+            resources:
+            - pods
+            - nodes
+            - limitranges
+            verbs:
+            - get
+            - list
+            - watch
+          - apiGroups:
+            - ""
+            resources:
+            - events
+            verbs:
+            - get
+            - list
+            - watch
+            - create
+          - apiGroups:
+            - poc.autoscaling.k8s.io
+            resources:
+            - verticalpodautoscalers
+            verbs:
+            - get
+            - list
+            - watch
+            - patch
+          - apiGroups:
+            - autoscaling.k8s.io
+            resources:
+            - verticalpodautoscalers
+            verbs:
+            - get
+            - list
+            - watch
+            - patch
+          - apiGroups:
+            - poc.autoscaling.k8s.io
+            resources:
+            - verticalpodautoscalercheckpoints
+            verbs:
+            - get
+            - list
+            - watch
+            - create
+            - patch
+            - delete
+          - apiGroups:
+            - autoscaling.k8s.io
+            resources:
+            - verticalpodautoscalercheckpoints
+            verbs:
+            - get
+            - list
+            - watch
+            - create
+            - patch
+            - delete
+          - apiGroups:
+            - ""
+            resources:
+            - namespaces
+            verbs:
+            - get
+            - list
+          - apiGroups:
+            - '*'
+            resources:
+            - '*/scale'
+            verbs:
+            - get
+            - watch
+          - apiGroups:
+            - ""
+            resources:
+            - replicationcontrollers
+            verbs:
+            - get
+            - list
+            - watch
+          - apiGroups:
+            - apps
+            resources:
+            - daemonsets
+            - deployments
+            - replicasets
+            - statefulsets
+            verbs:
+            - get
+            - list
+            - watch
+          - apiGroups:
+            - batch
+            resources:
+            - jobs
+            - cronjobs
+            verbs:
+            - get
+            - list
+            - watch
+          serviceAccountName: vpa-recommender
+        - rules:
+          - apiGroups:
+            - ""
+            resources:
+            - pods
+            - nodes
+            - limitranges
+            verbs:
+            - get
+            - list
+            - watch
+          - apiGroups:
+            - ""
+            resources:
+            - events
+            verbs:
+            - get
+            - list
+            - watch
+            - create
+          - apiGroups:
+            - poc.autoscaling.k8s.io
+            resources:
+            - verticalpodautoscalers
+            verbs:
+            - get
+            - list
+            - watch
+            - patch
+          - apiGroups:
+            - autoscaling.k8s.io
+            resources:
+            - verticalpodautoscalers
+            verbs:
+            - get
+            - list
+            - watch
+            - patch
+          - apiGroups:
+            - apps
+            - extensions
+            resources:
+            - replicasets
+            verbs:
+            - get
+          - apiGroups:
+            - ""
+            resources:
+            - pods/eviction
+            verbs:
+            - create
+          - apiGroups:
+            - coordination.k8s.io
+            resources:
+            - leases
+            verbs:
+            - get
+            - list
+            - watch
+          - apiGroups:
+            - '*'
+            resources:
+            - '*/scale'
+            verbs:
+            - get
+            - watch
+          - apiGroups:
+            - ""
+            resources:
+            - replicationcontrollers
+            verbs:
+            - get
+            - list
+            - watch
+          - apiGroups:
+            - apps
+            resources:
+            - daemonsets
+            - deployments
+            - replicasets
+            - statefulsets
+            verbs:
+            - get
+            - list
+            - watch
+          - apiGroups:
+            - batch
+            resources:
+            - jobs
+            - cronjobs
+            verbs:
+            - get
+            - list
+            - watch
+          serviceAccountName: vpa-updater
+        deployments:
+        - label:
+            app.kubernetes.io/component: manager
+            app.kubernetes.io/created-by: emr-dynamic-sizing
+            app.kubernetes.io/instance: controller-manager
+            app.kubernetes.io/managed-by: kustomize
+            app.kubernetes.io/name: deployment
+            app.kubernetes.io/part-of: emr-dynamic-sizing
+            control-plane: controller-manager
+          name: emr-dynamic-sizing-controller-manager
+          spec:
+            replicas: 1
+            selector:
+              matchLabels:
+                control-plane: controller-manager
+            strategy: {}
+            template:
+              metadata:
+                annotations:
+                  kubectl.kubernetes.io/default-container: manager
+                creationTimestamp: null
+                labels:
+                  control-plane: controller-manager
+              spec:
+                containers:
+                - args:
+                  - --health-probe-bind-address=:8081
+                  - --leader-elect
+                  command:
+                  - /manager
+                  image: 755674844232.dkr.ecr.us-east-1.amazonaws.com/dynamic-sizing-k8s-operator/emr-7.5.0:latest
+                  imagePullPolicy: Always
+                  livenessProbe:
+                    httpGet:
+                      path: /healthz
+                      port: 8081
+                    initialDelaySeconds: 15
+                    periodSeconds: 20
+                  name: manager
+                  readinessProbe:
+                    httpGet:
+                      path: /readyz
+                      port: 8081
+                    initialDelaySeconds: 5
+                    periodSeconds: 10
+                  resources:
+                    limits:
+                      cpu: 500m
+                      memory: 128Mi
+                    requests:
+                      cpu: 10m
+                      memory: 64Mi
+                  securityContext:
+                    allowPrivilegeEscalation: false
+                    capabilities:
+                      drop:
+                      - ALL
+                securityContext:
+                  runAsNonRoot: true
+                  runAsUser: 65532
+                serviceAccountName: emr-dynamic-sizing-controller-manager
+                terminationGracePeriodSeconds: 10
+        - name: vpa-admission-controller
+          spec:
+            replicas: 1
+            selector:
+              matchLabels:
+                app: vpa-admission-controller
+            strategy: {}
+            template:
+              metadata:
+                creationTimestamp: null
+                labels:
+                  app: vpa-admission-controller
+              spec:
+                containers:
+                - args:
+                  - --client-ca-file=/tmp/vpa-operator/serving-certs/olmCAKey
+                  - --tls-cert-file=/tmp/vpa-operator/serving-certs/tls.crt
+                  - --tls-private-key=/tmp/vpa-operator/serving-certs/tls.key
+                  - --register-webhook=false
+                  - --v=4
+                  - --stderrthreshold=info
+                  command:
+                  - ./admission-controller
+                  env:
+                  - name: NAMESPACE
+                    valueFrom:
+                      fieldRef:
+                        fieldPath: metadata.namespace
+                  image: registry.k8s.io/autoscaling/vpa-admission-controller:0.12.0
+                  imagePullPolicy: Always
+                  name: admission-controller
+                  ports:
+                  - containerPort: 8000
+                    name: webhook-server
+                    protocol: TCP
+                  - containerPort: 8944
+                    name: prometheus
+                    protocol: TCP
+                  resources:
+                    limits:
+                      cpu: 200m
+                      memory: 500Mi
+                    requests:
+                      cpu: 50m
+                      memory: 200Mi
+                  volumeMounts:
+                  - mountPath: /tmp/vpa-operator/serving-certs
+                    name: vpa-operator-cert
+                securityContext:
+                  runAsNonRoot: true
+                  runAsUser: 65534
+                serviceAccountName: vpa-admission-controller
+                volumes:
+                - name: vpa-operator-cert
+                  secret:
+                    defaultMode: 420
+                    secretName: vpa-admission-controller-service-cert
+        - name: vpa-recommender
+          spec:
+            replicas: 1
+            selector:
+              matchLabels:
+                app: vpa-recommender
+            strategy: {}
+            template:
+              metadata:
+                creationTimestamp: null
+                labels:
+                  app: vpa-recommender
+              spec:
+                containers:
+                - args:
+                  - --recommendation-margin-fraction=0.4
+                  image: registry.k8s.io/autoscaling/vpa-recommender:0.12.0
+                  imagePullPolicy: Always
+                  name: recommender
+                  ports:
+                  - containerPort: 8942
+                    name: prometheus
+                    protocol: TCP
+                  resources:
+                    limits:
+                      cpu: 200m
+                      memory: 1000Mi
+                    requests:
+                      cpu: 50m
+                      memory: 500Mi
+                securityContext:
+                  runAsNonRoot: true
+                  runAsUser: 65534
+                serviceAccountName: vpa-recommender
+        - name: vpa-updater
+          spec:
+            replicas: 1
+            selector:
+              matchLabels:
+                app: vpa-updater
+            strategy: {}
+            template:
+              metadata:
+                creationTimestamp: null
+                labels:
+                  app: vpa-updater
+              spec:
+                containers:
+                - env:
+                  - name: NAMESPACE
+                    valueFrom:
+                      fieldRef:
+                        fieldPath: metadata.namespace
+                  image: registry.k8s.io/autoscaling/vpa-updater:0.12.0
+                  imagePullPolicy: Always
+                  name: updater
+                  ports:
+                  - containerPort: 8943
+                    name: prometheus
+                    protocol: TCP
+                  resources:
+                    limits:
+                      cpu: 200m
+                      memory: 1000Mi
+                    requests:
+                      cpu: 50m
+                      memory: 500Mi
+                securityContext:
+                  runAsNonRoot: true
+                  runAsUser: 65534
+                serviceAccountName: vpa-updater
+        permissions:
+        - rules:
+          - apiGroups:
+            - ""
+            resources:
+            - configmaps
+            verbs:
+            - get
+            - list
+            - watch
+            - create
+            - update
+            - patch
+            - delete
+          - apiGroups:
+            - coordination.k8s.io
+            resources:
+            - leases
+            verbs:
+            - get
+            - list
+            - watch
+            - create
+            - update
+            - patch
+            - delete
+          - apiGroups:
+            - ""
+            resources:
+            - events
+            verbs:
+            - create
+            - patch
+          serviceAccountName: emr-dynamic-sizing-controller-manager
+      strategy: deployment
+    installModes:
+    - supported: true
+      type: OwnNamespace
+    - supported: true
+      type: SingleNamespace
+    - supported: true
+      type: MultiNamespace
+    - supported: true
+      type: AllNamespaces
+    keywords:
+    - emr
+    - emr-on-eks
+    - vertical-autoscaling
+    links:
+    - name: Emr Dynamic Sizing
+      url: https://emr-dynamic-sizing.domain
+    maturity: alpha
+    provider:
+      name: AWS
+      url: https://aws.amazon.com/emr/features/eks
+    version: 0.0.2
+    webhookdefinitions:
+    - admissionReviewVersions:
+      - v1
+      containerPort: 443
+      deploymentName: vpa-admission-controller
+      failurePolicy: Ignore
+      generateName: vpa.k8s.io
+      rules:
+      - apiGroups:
+        - ""
+        apiVersions:
+        - v1
+        operations:
+        - CREATE
+        resources:
+        - pods
+      - apiGroups:
+        - autoscaling.k8s.io
+        apiVersions:
+        - '*'
+        operations:
+        - CREATE
+        - UPDATE
+        resources:
+        - verticalpodautoscalers
+      sideEffects: None
+      targetPort: 8000
+      timeoutSeconds: 30
+      type: MutatingAdmissionWebhook
+  status:
+    certsLastUpdated: "2025-02-15T20:27:58Z"
+    certsRotateAt: "2027-02-14T20:27:57Z"
+    cleanup: {}
+    conditions:
+    - lastTransitionTime: "2025-02-15T20:27:55Z"
+      lastUpdateTime: "2025-02-15T20:27:55Z"
+      message: requirements not yet checked
+      phase: Pending
+      reason: RequirementsUnknown
+    - lastTransitionTime: "2025-02-15T20:27:55Z"
+      lastUpdateTime: "2025-02-15T20:27:55Z"
+      message: one or more requirements couldn't be found
+      phase: Pending
+      reason: RequirementsNotMet
+    - lastTransitionTime: "2025-02-15T20:27:57Z"
+      lastUpdateTime: "2025-02-15T20:27:57Z"
+      message: all requirements found, attempting install
+      phase: InstallReady
+      reason: AllRequirementsMet
+    - lastTransitionTime: "2025-02-15T20:27:57Z"
+      lastUpdateTime: "2025-02-15T20:27:57Z"
+      message: waiting for install components to report healthy
+      phase: Installing
+      reason: InstallSucceeded
+    - lastTransitionTime: "2025-02-15T20:27:57Z"
+      lastUpdateTime: "2025-02-15T20:27:58Z"
+      message: 'installing: waiting for deployment emr-dynamic-sizing-controller-manager
+        to become ready: deployment "emr-dynamic-sizing-controller-manager" not available:
+        Deployment does not have minimum availability.'
+      phase: Installing
+      reason: InstallWaiting
+    - lastTransitionTime: "2025-02-15T20:28:28Z"
+      lastUpdateTime: "2025-02-15T20:28:28Z"
+      message: install strategy completed with no errors
+      phase: Succeeded
+      reason: InstallSucceeded
+    lastTransitionTime: "2025-02-15T20:28:28Z"
+    lastUpdateTime: "2025-02-15T20:28:28Z"
+    message: install strategy completed with no errors
+    phase: Succeeded
+    reason: InstallSucceeded
+    requirementStatus:
+    - group: apiextensions.k8s.io
+      kind: CustomResourceDefinition
+      message: CRD is present and Established condition is true
+      name: jobruns.dynamicsizing.emr.services.k8s.aws
+      status: Present
+      uuid: 1d2a4ae9-7ef2-4733-a35f-4f9e0d254102
+      version: v1
+    - group: apiextensions.k8s.io
+      kind: CustomResourceDefinition
+      message: CRD is present and Established condition is true
+      name: verticalpodautoscalercheckpoints.autoscaling.k8s.io
+      status: Present
+      uuid: d7c52354-4653-4312-9e30-4a15da0c3034
+      version: v1
+    - group: apiextensions.k8s.io
+      kind: CustomResourceDefinition
+      message: CRD is present and Established condition is true
+      name: verticalpodautoscalers.autoscaling.k8s.io
+      status: Present
+      uuid: cb218be2-d465-457d-9a07-1557d10e3060
+      version: v1
+    - dependents:
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["create","delete","get","list","patch","update","watch"],"apiGroups":["autoscaling.k8s.io"],"resources":["verticalpodautoscalers"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["update"],"apiGroups":["autoscaling.k8s.io"],"resources":["verticalpodautoscalers/finalizers"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get"],"apiGroups":["autoscaling.k8s.io"],"resources":["verticalpodautoscalers/status"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get","list","watch"],"apiGroups":[""],"resources":["pods"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["create","delete","get","list","patch","update","watch"],"apiGroups":["dynamicsizing.emr.services.k8s.aws"],"resources":["jobruns"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["update"],"apiGroups":["dynamicsizing.emr.services.k8s.aws"],"resources":["jobruns/finalizers"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get","patch","update"],"apiGroups":["dynamicsizing.emr.services.k8s.aws"],"resources":["jobruns/status"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["create"],"apiGroups":["authentication.k8s.io"],"resources":["tokenreviews"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["create"],"apiGroups":["authorization.k8s.io"],"resources":["subjectaccessreviews"]}
+        status: Satisfied
+        version: v1
+      group: ""
+      kind: ServiceAccount
+      message: ""
+      name: emr-dynamic-sizing-controller-manager
+      status: Present
+      version: v1
+    - dependents:
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get","list","watch"],"apiGroups":[""],"resources":["pods","configmaps","nodes","limitranges"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["create","delete","get","list"],"apiGroups":["admissionregistration.k8s.io"],"resources":["mutatingwebhookconfigurations"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get","list","watch"],"apiGroups":["poc.autoscaling.k8s.io"],"resources":["verticalpodautoscalers"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get","list","watch"],"apiGroups":["autoscaling.k8s.io"],"resources":["verticalpodautoscalers"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["create","update","get","list","watch"],"apiGroups":["coordination.k8s.io"],"resources":["leases"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get","watch"],"apiGroups":["*"],"resources":["*/scale"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get","list","watch"],"apiGroups":[""],"resources":["replicationcontrollers"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get","list","watch"],"apiGroups":["apps"],"resources":["daemonsets","deployments","replicasets","statefulsets"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get","list","watch"],"apiGroups":["batch"],"resources":["jobs","cronjobs"]}
+        status: Satisfied
+        version: v1
+      group: ""
+      kind: ServiceAccount
+      message: ""
+      name: vpa-admission-controller
+      status: Present
+      version: v1
+    - dependents:
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get","list"],"apiGroups":["metrics.k8s.io"],"resources":["pods"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get","list","watch"],"apiGroups":[""],"resources":["pods","nodes","limitranges"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get","list","watch","create"],"apiGroups":[""],"resources":["events"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get","list","watch","patch"],"apiGroups":["poc.autoscaling.k8s.io"],"resources":["verticalpodautoscalers"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get","list","watch","patch"],"apiGroups":["autoscaling.k8s.io"],"resources":["verticalpodautoscalers"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get","list","watch","create","patch","delete"],"apiGroups":["poc.autoscaling.k8s.io"],"resources":["verticalpodautoscalercheckpoints"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get","list","watch","create","patch","delete"],"apiGroups":["autoscaling.k8s.io"],"resources":["verticalpodautoscalercheckpoints"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get","list"],"apiGroups":[""],"resources":["namespaces"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get","watch"],"apiGroups":["*"],"resources":["*/scale"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get","list","watch"],"apiGroups":[""],"resources":["replicationcontrollers"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get","list","watch"],"apiGroups":["apps"],"resources":["daemonsets","deployments","replicasets","statefulsets"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get","list","watch"],"apiGroups":["batch"],"resources":["jobs","cronjobs"]}
+        status: Satisfied
+        version: v1
+      group: ""
+      kind: ServiceAccount
+      message: ""
+      name: vpa-recommender
+      status: Present
+      version: v1
+    - dependents:
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get","list","watch"],"apiGroups":[""],"resources":["pods","nodes","limitranges"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get","list","watch","create"],"apiGroups":[""],"resources":["events"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get","list","watch","patch"],"apiGroups":["poc.autoscaling.k8s.io"],"resources":["verticalpodautoscalers"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get","list","watch","patch"],"apiGroups":["autoscaling.k8s.io"],"resources":["verticalpodautoscalers"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get"],"apiGroups":["apps","extensions"],"resources":["replicasets"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["create"],"apiGroups":[""],"resources":["pods/eviction"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get","list","watch"],"apiGroups":["coordination.k8s.io"],"resources":["leases"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get","watch"],"apiGroups":["*"],"resources":["*/scale"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get","list","watch"],"apiGroups":[""],"resources":["replicationcontrollers"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get","list","watch"],"apiGroups":["apps"],"resources":["daemonsets","deployments","replicasets","statefulsets"]}
+        status: Satisfied
+        version: v1
+      - group: rbac.authorization.k8s.io
+        kind: PolicyRule
+        message: cluster rule:{"verbs":["get","list","watch"],"apiGroups":["batch"],"resources":["jobs","cronjobs"]}
+        status: Satisfied
+        version: v1
+      group: ""
+      kind: ServiceAccount
+      message: ""
+      name: vpa-updater
+      status: Present
+      version: v1
+kind: List
+metadata:
+  resourceVersion: ""

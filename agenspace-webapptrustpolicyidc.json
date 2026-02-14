@@ -1,0 +1,36 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Service": "aidevops.amazonaws.com"
+            },
+            "Action": "sts:AssumeRole",
+            "Condition": {
+                "StringEquals": {
+                    "aws:SourceAccount": "001178237879"
+                },
+                "ArnLike": {
+                    "aws:SourceArn": "arn:aws:aidevops:us-east-1:001178237879:agentspace/*"
+                }
+            }
+        },
+        {
+            "Sid": "TrustedIdentityPropagation",
+            "Effect": "Allow",
+            "Principal": {
+                "Service": "aidevops.amazonaws.com"
+            },
+            "Action": "sts:SetContext",
+            "Condition": {
+                "Null": {
+                    "sts:RequestContextProviders": "false"
+                },
+                "ForAllValues:ArnEquals": {
+                    "sts:RequestContextProviders": "arn:aws:iam::aws:contextProvider/IdentityCenter"
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,32 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowAwsSupportActions",
+            "Effect": "Allow",
+            "Action": [
+                "support:CreateCase",
+                "support:DescribeCases"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "AllowExpandedAIOpsAssistantPolicy",
+            "Effect": "Allow",
+            "Action": [
+                "aidevops:GetKnowledgeItem",
+                "aidevops:ListKnowledgeItems",
+                "eks:AccessKubernetesApi",
+                "synthetics:GetCanaryRuns",
+                "route53:GetHealthCheckStatus",
+                "resource-explorer-2:Search",
+                "codedeploy:GetDeploymentTarget"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}
